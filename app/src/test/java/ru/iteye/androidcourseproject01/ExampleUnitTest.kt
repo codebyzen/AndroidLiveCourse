@@ -1,4 +1,4 @@
-package ru.iteye.androidcourseproject_01
+package ru.iteye.androidcourseproject01
 
 import org.junit.Test
 

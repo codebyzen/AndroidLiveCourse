@@ -1,4 +1,4 @@
-package ru.iteye.androidcourseproject_01
+package ru.iteye.androidcourseproject01
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
