@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_screen_email_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/btn_text_login_email_registration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox_terms" />
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <CheckBox
+        android:id="@+id/checkbox_terms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/checkbox_login_confirm_rights"
+        app:layout_constraintStart_toStartOf="@+id/input_password_repeat"
+        app:layout_constraintTop_toBottomOf="@+id/input_password_repeat" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_login_password"
+        app:layout_constraintStart_toStartOf="@+id/input_email"
+        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="62dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_login_email"
+        app:layout_constraintStart_toStartOf="@+id/input_email"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/text_login_password_repeat"
+        app:layout_constraintStart_toStartOf="@+id/input_password"
+        app:layout_constraintTop_toBottomOf="@+id/input_password" />
+
+    <EditText
+        android:id="@+id/input_password_repeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+</android.support.constraint.ConstraintLayout>

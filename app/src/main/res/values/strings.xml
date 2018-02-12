@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">AndroidCourseProject_01</string>
+    <string name="btn_text_login_vk">Sign up VK</string>
+    <string name="btn_text_login_fb">Sign up FB</string>
+    <string name="btn_text_login_email">Sign up Email</string>
+
+    <string name="text_login_email">Email</string>
+    <string name="text_login_password">Password</string>
+    <string name="text_login_password_repeat">Repeat Password</string>
+    <string name="checkbox_login_confirm_rights">I agree with the terms of use</string>
+
+    <string name="btn_text_login_email_registration">Registration</string>
 </resources>
