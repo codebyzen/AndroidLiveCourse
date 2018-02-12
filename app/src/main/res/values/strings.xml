@@ -5,9 +5,14 @@
     <string name="btn_text_login_email">Sign up Email</string>
 
     <string name="text_login_email">Email</string>
+    <string name="text_login_input_email_placeholder">myname@domain.tld</string>
+
     <string name="text_login_password">Password</string>
-    <string name="text_login_password_repeat">Repeat Password</string>
+    <string name="text_login_input_password_placeholder">your secret phrase</string>
+
     <string name="checkbox_login_confirm_rights">I agree with the terms of use</string>
 
-    <string name="btn_text_login_email_registration">Registration</string>
+    <string name="btn_text_login_email_registration">Login / Registration</string>
+
+    <string name="btn_text_login_email_send_password">I forgot password</string>
 </resources>
