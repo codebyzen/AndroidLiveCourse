@@ -12,6 +12,9 @@ import android.widget.Toast
 import com.google.android.gms.common.GoogleApiAvailability
 
 
+/**
+ * Наследовать опять же от BaseActivity
+ */
 open class AppActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

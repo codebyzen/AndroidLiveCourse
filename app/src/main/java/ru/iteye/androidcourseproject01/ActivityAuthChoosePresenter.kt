@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 
+/**
+ * То, что называется ChoosePresenter не должна наследоваться от Activity
+ * Это важное правило
+ */
 class ActivityAuthChoosePresenter: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
