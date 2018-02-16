@@ -2,7 +2,6 @@ package ru.iteye.androidcourseproject01
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 
@@ -10,7 +9,7 @@ import android.view.View
  * То, что называется ChoosePresenter не должна наследоваться от Activity
  * Это важное правило
  */
-class ActivityAuthChoosePresenter: AppCompatActivity() {
+class ActivityAuthChoosePresenter: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

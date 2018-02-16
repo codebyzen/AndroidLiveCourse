@@ -1,10 +1,9 @@
 package ru.iteye.androidcourseproject01
 
-import android.content.Context
+import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-
 
 class AuthCheck {
 
@@ -17,15 +16,9 @@ class AuthCheck {
      */
     fun checkAuth(): Boolean {
         Log.d("***", "AuthCheck checkAuth")
-
+        FirebaseAuth.getInstance().currentUser?.reload() // перегружаем чтобы из сессии не тянул
         this.mAuth = FirebaseAuth.getInstance()
         this.user = mAuth?.currentUser
-        var resultIs: Boolean = false
-        if (this.user==null) {
-            resultIs = false
-        } else {
-            resultIs = true
-        }
-        return resultIs
+        return this.user != null
     }
 }

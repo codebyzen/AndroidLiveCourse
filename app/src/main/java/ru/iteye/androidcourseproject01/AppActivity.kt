@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
@@ -15,7 +14,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 /**
  * Наследовать опять же от BaseActivity
  */
-open class AppActivity: AppCompatActivity() {
+open class AppActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +52,7 @@ open class AppActivity: AppCompatActivity() {
     private fun waitChecksResults(mSecondsDelayed: Long, checksPayload: () -> Unit){
         Handler().postDelayed({
             checksPayload()
-            finish()
+            //finish()
         }, mSecondsDelayed)
     }
 
@@ -72,6 +71,8 @@ open class AppActivity: AppCompatActivity() {
             val intent = Intent(this, ActivityAuthChoosePresenter::class.java).apply {}
             startActivity(intent)
 
+        } else {
+            Toast.makeText(this, "Authentication success!", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -79,7 +80,7 @@ open class AppActivity: AppCompatActivity() {
      * Возвращаем true если версия Google Play Service нормальная
      */
     private fun checkForGooglePlayServiceVersion(): Boolean {
-        var isOk: Boolean = false
+        var isOk = false
         // Берем Google Play Service версии
         val googlePlayServiceCurrentVersion = packageManager.getPackageInfo("com.google.android.gms", 0).versionCode
         val googlePlayServiceNewestVersion = GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE
