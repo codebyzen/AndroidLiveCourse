@@ -1,13 +1,14 @@
 package ru.iteye.androidcourseproject01
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import android.app.Activity
-
-
-
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
+import android.view.View
+import android.widget.TextView
 
 
 /**
@@ -21,32 +22,41 @@ import android.app.Activity
  */
 open class BaseActivity : AppCompatActivity() {
 
+    private var cView: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("CREATE", "BaseActivity")
     }
 
-    /**
-     *  чтобы класс наследник вызывая например showToast
-     *  мог быть в контексте текущей активности
-     */
-    //TODO: для всплывашки
-    private var mCurrentActivity: Activity? = null
-    fun getCurrentActivity(): Activity? {
-        return mCurrentActivity
+    fun setContext(c: Context) {
+        cView = c
     }
-    fun setCurrentActivity(mCurrentActivity: Activity?) {
-        this.mCurrentActivity = mCurrentActivity
-    }
-
 
     /**
      * Показываем всплывашку
      */
-    //TODO: никак не получается в контексте активной активити вывести всплывашку =((((
     fun showToast(msg: String) {
-        Toast.makeText(getCurrentActivity(), msg, Toast.LENGTH_LONG).show()
+        //Log.d("***", this.packageName.toString())
+        Toast.makeText(this.cView, msg, Toast.LENGTH_LONG).show()
+    }
+
+    /**
+     * Simple alert dialog for some debug purposes
+     */
+    fun showCustomAlert(customMessage: String, isExit: Boolean){
+        val dialog = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.alert_dialog,null)
+        val alertMessage = dialogView.findViewById<TextView>(R.id.textAlertMessage)
+        dialog.setView(dialogView)
+        //dialog.setCancelable(true)
+        dialog.setPositiveButton("Ok",{ dialogInterface: DialogInterface, i: Int ->
+            if (isExit) System.exit(0)
+        })
+        alertMessage.text = customMessage
+        val customDialog = dialog.create()
+        customDialog.show()
+
     }
 
 }

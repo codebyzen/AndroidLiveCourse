@@ -19,13 +19,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ActivityAuthChoosePresenter" />
+        <activity android:name=".AuthChooseActivity" />
 
 
-        <activity android:name=".ActivityAuthEmailPresenter">
+        <activity android:name=".AuthEmailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidcourseproject01.ActivityAuthChoosePresenter" />
+                android:value="ru.iteye.androidcourseproject01.AuthChooseActivity" />
         </activity>
 
     </application>
