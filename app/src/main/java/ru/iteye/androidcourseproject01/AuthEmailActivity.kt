@@ -18,6 +18,7 @@ class AuthEmailActivity : BaseActivity() {
         Log.d(TAG, "AuthEmail created!")
     }
 
+    //TODO, отлично! Только это можно и в BaseActivity перенести. Ведь у тебя ошибка может быть везде, а не только тут?
     fun showError(msg: String){
        showToast(msg)
     }

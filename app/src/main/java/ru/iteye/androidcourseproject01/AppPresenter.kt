@@ -6,6 +6,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 
 
 class AppPresenter(connectedActivity: AppActivity) {
+    //TODO презентер НИКОГДА! (ну почти=)) не знает о контексте. Для взаимодействия с активити надо делать view
     private val activity: AppActivity= connectedActivity
 
 

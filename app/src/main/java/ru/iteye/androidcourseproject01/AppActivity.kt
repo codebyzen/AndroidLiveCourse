@@ -15,6 +15,7 @@ open class AppActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_base)
 
+        // TODO это лишее
         setContext(this) // задаем контекст нашему BaseActivity
 
         Log.d("CREATE", "AppActivity")

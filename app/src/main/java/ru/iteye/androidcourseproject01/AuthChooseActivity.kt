@@ -24,11 +24,11 @@ class AuthChooseActivity: BaseActivity() {
     fun onBtnClickEmailType(view: View){
         Log.d("CLICK", "onBtnClickEmailType")
         authChoosePresenter.startAuthEmailActivity()
-        //finish() // это тут надо?
+        //finish() // это тут надо? //TODO нет, не нужно
     }
 
     fun startAuthEmailActivity(){
-        val intent = Intent(this, AuthEmailActivity::class.java).apply {}
+        val intent = Intent(this, AuthEmailActivity::class.java)
         startActivity(intent)
     }
 

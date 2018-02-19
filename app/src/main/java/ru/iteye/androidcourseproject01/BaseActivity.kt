@@ -22,7 +22,7 @@ import android.widget.TextView
  */
 open class BaseActivity : AppCompatActivity() {
 
-    private var cView: Context? = null
+//    private var cView: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,15 +30,17 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun setContext(c: Context) {
-        cView = c
+//        cView = c
     }
 
     /**
      * Показываем всплывашку
      */
+    //TODO на самом деле, как бы ты не любил Toast, он немного устарел.
+    // Его надо использовать, если совсем плохо все и нельзя показать красивый SnackBar. Пусть будет он
     fun showToast(msg: String) {
         //Log.d("***", this.packageName.toString())
-        Toast.makeText(this.cView, msg, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 
     /**
@@ -51,6 +53,7 @@ open class BaseActivity : AppCompatActivity() {
         dialog.setView(dialogView)
         //dialog.setCancelable(true)
         dialog.setPositiveButton("Ok",{ dialogInterface: DialogInterface, i: Int ->
+            //TODO а что это?
             if (isExit) System.exit(0)
         })
         alertMessage.text = customMessage

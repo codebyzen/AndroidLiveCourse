@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseUser
 /**
  * Класс для авторизации (тут будет логика авторизации)
  */
+//TODO тут ты молодец, почти все так. Чуть позже добавим RxJava и будет чудесно.
+// Пока слишком много методов, не стоит на них фокусироваться
 class AuthEmailRepository {
 
     var fAuth: FirebaseAuth? = null // класс авторизации firebase

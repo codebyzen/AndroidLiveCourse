@@ -4,10 +4,10 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.EditText
 
-
+//TODO. Тут уже лучше, но зачем в контексте активити? Она тут вообще бесполезна
 class AuthEmailPresenter(connectedActivity: AuthEmailActivity) {
 
-    val activity: AuthEmailActivity = connectedActivity
+//    val activity: AuthEmailActivity = connectedActivity
 
     /**
      * Проверяем на валидность email
@@ -19,6 +19,7 @@ class AuthEmailPresenter(connectedActivity: AuthEmailActivity) {
     /**
      * Проверяем на валидность форму логина/пароля/чекбокса
      */
+    //TODO сюда не нужно тоже передавать EditText
     private fun validateFormEmailAuth(emailField: EditText, passwordField: EditText): Boolean {
 
         if (TextUtils.isEmpty(emailField.text.toString()) || !isValidEmail(emailField.text)) {
@@ -39,6 +40,8 @@ class AuthEmailPresenter(connectedActivity: AuthEmailActivity) {
      * Пытаемся войти с предоставленными данными
      * Если не получается (нет пользователя) то регистрируем нового
      */
+    //TODO. Почти так. Но ведь view может дать презентеру сразу готовый текст, так ведь?)
+    //TODO. Более того, в целом можно и проверить валидность на view и отдать сюда готовые текста
     fun signIn(emailField: EditText, passwordField: EditText) {
         Log.d("***", "signIn:" + emailField.text.toString())
 
