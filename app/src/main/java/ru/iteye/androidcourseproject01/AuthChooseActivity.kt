@@ -13,8 +13,6 @@ class AuthChooseActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_screen)
 
-        setContext(this) // задаем контекст нашему BaseActivity
-
         Log.d("CREATE", "ActivityAuthChoosePresenter")
     }
 
@@ -24,7 +22,6 @@ class AuthChooseActivity: BaseActivity() {
     fun onBtnClickEmailType(view: View){
         Log.d("CLICK", "onBtnClickEmailType")
         authChoosePresenter.startAuthEmailActivity()
-        //finish() // это тут надо? //TODO нет, не нужно
     }
 
     fun startAuthEmailActivity(){

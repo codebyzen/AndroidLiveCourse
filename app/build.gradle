@@ -50,6 +50,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'com.android.support:multidex:1.0.2'
     compile 'com.vk:androidsdk:1.6.8'
+
+    compile 'com.android.support:design:27.0.2'
 }
 
 

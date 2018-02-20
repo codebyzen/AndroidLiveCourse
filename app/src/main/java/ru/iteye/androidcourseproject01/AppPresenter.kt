@@ -5,41 +5,40 @@ import android.util.Log
 import com.google.android.gms.common.GoogleApiAvailability
 
 
-class AppPresenter(connectedActivity: AppActivity) {
-    //TODO презентер НИКОГДА! (ну почти=)) не знает о контексте. Для взаимодействия с активити надо делать view
-    private val activity: AppActivity= connectedActivity
+//TODO: ну непонимаю я как передавать view... Так как сейчас работает...
+class AppPresenter(view: AppActivity) {
 
+    private val view: AppActivity = view
 
     /**
      * Возвращаем true если версия Google Play Service нормальная
      */
-    fun checkForGooglePlayServiceVersion(): Boolean {
-        var isOk = false
+    private fun checkForGooglePlayServiceVersion(): Boolean {
         // Берем Google Play Service версии
-        val googlePlayServiceCurrentVersion = activity.packageManager.getPackageInfo("com.google.android.gms", 0).versionCode
+        val googlePlayServiceCurrentVersion = view.packageManager.getPackageInfo("com.google.android.gms", 0).versionCode
         val googlePlayServiceNewestVersion = GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE
 
         Log.d("*** VERSION CODE have", googlePlayServiceCurrentVersion.toString())
         Log.d("*** VERSION CODE need", googlePlayServiceNewestVersion.toString())
-        isOk = googlePlayServiceCurrentVersion >= googlePlayServiceNewestVersion
-        return isOk
+        return googlePlayServiceCurrentVersion >= googlePlayServiceNewestVersion
     }
 
     /**
      * Смотрим что у нас с авторизацией
      */
-    fun checkForAuth(){
+    private fun checkForAuth(){
         // тут у нас проверка на аутентификацию
         val authDomain = AuthEmailRepository()
 
+        //TODO: в authDomain.checkAuth() передавать замыкание, т.к. внутри асинхронность
         if (authDomain.checkAuth()==null) {
             // не аутентифицирован
-            activity.showError("Authentication failed!")
+            view.showMessage("Authentication failed!", false)
 
-            activity.startAuthChooseActivity()
+            view.startAuthChooseActivity()
 
         } else {
-            activity.showError("Authentication success!")
+            view.showMessage("Authentication success!", false)
             //TODO: тут мы можем переходить к списку друзей
         }
     }
@@ -57,7 +56,7 @@ class AppPresenter(connectedActivity: AppActivity) {
             // смотрим правильный ли у нас номер google Play Service
             if (!checkForGooglePlayServiceVersion()) {
                 // показываем диалог с просьбой обновить Google Services и выходим
-                activity.showCustomAlert("Update Google Services!", true)
+                view.showCustomAlert("Update Google Services!", true)
             } else {
                 // прошли проверку на версии
                 checkForAuth()

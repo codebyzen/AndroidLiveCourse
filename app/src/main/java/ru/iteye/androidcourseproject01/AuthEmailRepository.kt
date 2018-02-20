@@ -2,18 +2,13 @@ package ru.iteye.androidcourseproject01
 
 import android.content.ContentValues
 import android.util.Log
-import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-
-
 
 
 /**
  * Класс для авторизации (тут будет логика авторизации)
  */
-//TODO тут ты молодец, почти все так. Чуть позже добавим RxJava и будет чудесно.
-// Пока слишком много методов, не стоит на них фокусироваться
 class AuthEmailRepository {
 
     var fAuth: FirebaseAuth? = null // класс авторизации firebase
@@ -22,12 +17,13 @@ class AuthEmailRepository {
     /**
      * Возвращаем тру или фолс в зависимости от того авторизован пользователь или нет
      */
+    //TODO: сюда вставить замыкание, а то reload() выполняется асинхронно
     fun checkAuth(): FirebaseUser? {
         Log.d("***", "AuthCheck checkAuth")
         FirebaseAuth.getInstance().currentUser?.reload() // перегружаем чтобы из сессии не тянул
         this.fAuth = FirebaseAuth.getInstance()
         this.fUser = fAuth?.currentUser
-        var resultIs: FirebaseUser? = null
+        var resultIs: FirebaseUser?
         if (this.fUser==null) {
             resultIs = null
         } else {
@@ -51,20 +47,21 @@ class AuthEmailRepository {
     /**
      * Авторизуем пользователя по паре email, password
      */
-    private fun authExistingUser(email: String, password: String) {
+    private fun authExistingUser(email: String, password: String, afterRegistration: (Boolean?) -> Unit) {
         fAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener({ task ->
             if (task.isSuccessful) {
                 Log.d(ContentValues.TAG, "signInWithEmail:success")
                 fUser = fAuth?.currentUser
+                afterRegistration(false)
             } else {
                 Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
+                afterRegistration(null)
             }
-            //todo: перенести колбек код в презентер
             //todo: надо отменить асинхронную операцию, когда вьюха уничтожается
         })
     }
 
-    fun signInEmail(email: String, password: String) {
+    fun signInEmail(email: String, password: String, afterRegistration: (Boolean?) -> Unit) {
 
         if (checkAuth()==null) {
             Log.d("***", "userExist PASS")
@@ -74,16 +71,17 @@ class AuthEmailRepository {
                     Log.d("***", "createUserWithEmail:success")
                     fUser = fAuth?.currentUser
                     sendVerifyEmail(fUser)
+                    afterRegistration(true)
                 } else {
                     Log.w("***", "createUserWithEmail:failure", task.exception)
+                    afterRegistration(null)
                 }
-                //todo: перенести колбек код в презентер
                 //todo: надо отменить асинхронную операцию, когда вьюха уничтожается
-
             })
 
+
         } else {
-            authExistingUser(email, password)
+            authExistingUser(email, password, afterRegistration)
         }
 
     }

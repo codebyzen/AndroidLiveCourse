@@ -1,11 +1,11 @@
 package ru.iteye.androidcourseproject01
 
-class AuthChoosePresenter(connectedActivity: AuthChooseActivity) {
+class AuthChoosePresenter(view: AuthChooseActivity) {
 
-    private val activity: AuthChooseActivity = connectedActivity
+    private val view: AuthChooseActivity = view
 
     fun startAuthEmailActivity() {
-        activity.startAuthEmailActivity()
+        this.view.startAuthEmailActivity()
     }
 
 }

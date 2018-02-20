@@ -1,36 +1,22 @@
 package ru.iteye.androidcourseproject01
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
 import android.content.DialogInterface
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
-import android.view.View
 import android.widget.TextView
+import android.view.Gravity
+import android.widget.FrameLayout
 
 
-/**
-* Дальше мы будем наследовать все Activity от этого класса.
- * Например, нам надо показать ошибку от сервера. Чаще всего, это диалог, где показывается текст и кнопка "ОК"
- * Функцию показа этого диалога можно сделать только тут, и просто ее вызывать. Это избавит от излишнего кода
- *
- *
- * Или же надо делать действия, необходимые на каждом экране. Например, проверка токена пользователя при переходе на активити.
- * Логику можно также описать только в базовой активити
- */
 open class BaseActivity : AppCompatActivity() {
-
-//    private var cView: Context? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("CREATE", "BaseActivity")
-    }
-
-    fun setContext(c: Context) {
-//        cView = c
     }
 
     /**
@@ -38,9 +24,28 @@ open class BaseActivity : AppCompatActivity() {
      */
     //TODO на самом деле, как бы ты не любил Toast, он немного устарел.
     // Его надо использовать, если совсем плохо все и нельзя показать красивый SnackBar. Пусть будет он
-    fun showToast(msg: String) {
+
+    //TODO: SnackBar закрывается при вызове новой активности. Он остается на старой. Поэтому я пользовал тост.
+    private fun showToast(msg: String) {
         //Log.d("***", this.packageName.toString())
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+    }
+
+    private fun showSnack(msg: String) {
+        val snack: Snackbar = Snackbar.make(window.decorView.rootView, msg, Snackbar.LENGTH_LONG)
+        val view = snack.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+        snack.show()
+    }
+
+    fun showMessage(msg: String, isToast: Boolean) {
+        if (isToast) {
+            showToast(msg)
+        } else {
+            showSnack(msg)
+        }
     }
 
     /**
@@ -54,6 +59,7 @@ open class BaseActivity : AppCompatActivity() {
         //dialog.setCancelable(true)
         dialog.setPositiveButton("Ok",{ dialogInterface: DialogInterface, i: Int ->
             //TODO а что это?
+            //TODO а это если захочу убить приложение при завершении диалога, это для отладки
             if (isExit) System.exit(0)
         })
         alertMessage.text = customMessage
