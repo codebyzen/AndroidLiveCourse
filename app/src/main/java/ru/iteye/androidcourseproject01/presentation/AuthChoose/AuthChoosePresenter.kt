@@ -1,4 +1,4 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.AuthChoose
 
 class AuthChoosePresenter(view: AuthChooseActivity) {
 

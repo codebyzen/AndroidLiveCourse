@@ -1,4 +1,4 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.global
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog
 import android.widget.TextView
 import android.view.Gravity
 import android.widget.FrameLayout
+import ru.iteye.androidcourseproject01.R
 
 
 open class BaseActivity : AppCompatActivity() {

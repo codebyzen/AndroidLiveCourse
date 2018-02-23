@@ -1,4 +1,4 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.AuthEmail
 
 import android.util.Log
 import android.widget.EditText
@@ -6,6 +6,8 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import ru.iteye.androidcourseproject01.presentation.global.BaseActivity
+import ru.iteye.androidcourseproject01.R
 
 
 class AuthEmailActivity : BaseActivity() {

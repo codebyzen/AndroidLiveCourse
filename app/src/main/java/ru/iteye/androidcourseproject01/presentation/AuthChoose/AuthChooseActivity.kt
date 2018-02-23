@@ -1,9 +1,12 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.AuthChoose
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import ru.iteye.androidcourseproject01.presentation.global.BaseActivity
+import ru.iteye.androidcourseproject01.R
+import ru.iteye.androidcourseproject01.presentation.AuthEmail.AuthEmailActivity
 
 class AuthChooseActivity: BaseActivity() {
 

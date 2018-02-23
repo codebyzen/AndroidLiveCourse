@@ -1,7 +1,8 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.AuthEmail
 
 import android.text.TextUtils
 import android.util.Log
+import ru.iteye.androidcourseproject01.domain.AuthEmail.AuthEmailRepository
 
 
 class AuthEmailPresenter(view: AuthEmailActivity) {

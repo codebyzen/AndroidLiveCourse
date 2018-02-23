@@ -1,8 +1,11 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import ru.iteye.androidcourseproject01.R
+import ru.iteye.androidcourseproject01.presentation.AuthChoose.AuthChooseActivity
+import ru.iteye.androidcourseproject01.presentation.global.BaseActivity
 
 class AppActivity : BaseActivity() {
 

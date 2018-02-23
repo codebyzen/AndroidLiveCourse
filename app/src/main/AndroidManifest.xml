@@ -12,20 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="ru.iteye.androidcourseproject01.AppActivity">
+        <activity android:name="ru.iteye.androidcourseproject01.presentation.splashscreen.AppActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".AuthChooseActivity" />
+        <activity android:name=".presentation.AuthChoose.AuthChooseActivity" />
 
 
-        <activity android:name=".AuthEmailActivity">
+        <activity android:name=".presentation.AuthEmail.AuthEmailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidcourseproject01.AuthChooseActivity" />
+                android:value="ru.iteye.androidcourseproject01.presentation.AuthChoose.AuthChooseActivity" />
         </activity>
 
     </application>

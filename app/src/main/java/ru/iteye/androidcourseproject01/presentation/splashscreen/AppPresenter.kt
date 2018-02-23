@@ -1,8 +1,10 @@
-package ru.iteye.androidcourseproject01
+package ru.iteye.androidcourseproject01.presentation.splashscreen
 
 import android.os.Handler
 import android.util.Log
 import com.google.android.gms.common.GoogleApiAvailability
+import ru.iteye.androidcourseproject01.data.FirebaseImpl
+import ru.iteye.androidcourseproject01.domain.AuthEmail.AuthEmailRepository
 
 
 //TODO: ну непонимаю я как передавать view... Так как сейчас работает...
@@ -30,19 +32,19 @@ class AppPresenter(view: AppActivity) {
         // тут у нас проверка на аутентификацию
         val authDomain = AuthEmailRepository()
 
-        //TODO: в authDomain.checkAuth() передавать замыкание, т.к. внутри асинхронность
-        if (authDomain.checkAuth()==null) {
-            // не аутентифицирован
-            view.showMessage("Authentication failed!", false)
-
-            view.startAuthChooseActivity()
-
-        } else {
-            view.showMessage("Authentication success!", false)
-            //TODO: тут мы можем переходить к списку друзей
-        }
+        authDomain.checkAuth(::afterAuthCheck)
     }
 
+    fun afterAuthCheck(isAuth: Boolean) {
+        if (isAuth) {
+            view.showMessage("Authentication success!", false)
+            //TODO: тут мы можем переходить к списку друзей
+        } else {
+            // не аутентифицирован
+            view.showMessage("Authentication failed!", false)
+            view.startAuthChooseActivity()
+        }
+    }
 
     fun startupCheckList(){
         //TODO: реализовать асинхронность
