@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import android.content.DialogInterface
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.widget.TextView
@@ -52,17 +51,19 @@ open class BaseActivity : AppCompatActivity() {
     /**
      * Simple alert dialog for some debug purposes
      */
-    fun showCustomAlert(customMessage: String, isExit: Boolean){
+    fun showCustomAlert(customMessage: String){
         val dialog = AlertDialog.Builder(this)
         val dialogView = layoutInflater.inflate(R.layout.alert_dialog,null)
         val alertMessage = dialogView.findViewById<TextView>(R.id.textAlertMessage)
         dialog.setView(dialogView)
         //dialog.setCancelable(true)
-        dialog.setPositiveButton("Ok",{ dialogInterface: DialogInterface, i: Int ->
-            //TODO а что это?
-            //TODO а это если захочу убить приложение при завершении диалога, это для отладки
-            if (isExit) System.exit(0)
-        })
+        //TODO ты можешь ставить кастомные действия для диалога. Если не поставить ничего, то просто закроет диалог
+                //TODO убивать приложение точно не надо, даже для отладки. Для отладки у тебя есть лог, используй его„L
+//        dialog.setPositiveButton("Ok",{ dialogInterface: DialogInterface, i: Int ->
+//            //TODO а что это?
+//            //TODO а это если захочу убить приложение при завершении диалога, это для отладки
+//            if (isExit) System.exit(0)
+//        })
         alertMessage.text = customMessage
         val customDialog = dialog.create()
         customDialog.show()

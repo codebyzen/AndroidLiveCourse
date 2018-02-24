@@ -3,7 +3,6 @@ package ru.iteye.androidcourseproject01.presentation.splashscreen
 import android.os.Handler
 import android.util.Log
 import com.google.android.gms.common.GoogleApiAvailability
-import ru.iteye.androidcourseproject01.data.FirebaseImpl
 import ru.iteye.androidcourseproject01.domain.AuthEmail.AuthEmailRepository
 
 
@@ -58,7 +57,7 @@ class AppPresenter(view: AppActivity) {
             // смотрим правильный ли у нас номер google Play Service
             if (!checkForGooglePlayServiceVersion()) {
                 // показываем диалог с просьбой обновить Google Services и выходим
-                view.showCustomAlert("Update Google Services!", true)
+                view.showCustomAlert("Update Google Services!")
             } else {
                 // прошли проверку на версии
                 checkForAuth()

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+//TODO а куда тут пере
 
 open class FirebaseImpl {
     var fAuth: FirebaseAuth? = null // класс авторизации firebase

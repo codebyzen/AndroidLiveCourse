@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button_registration"
+        android:id="@+id/button_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -46,6 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAlertMessage" />
 
+    <!--ты же логинишься, а не регистрируешься. Поздно принимать условия, у тебя есть уже профиль-->
     <CheckBox
         android:id="@+id/checkbox_terms"
         android:layout_width="wrap_content"
@@ -84,5 +85,5 @@
         android:text="@string/btn_text_login_email_send_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_registration" />
+        app:layout_constraintTop_toBottomOf="@+id/button_auth" />
 </android.support.constraint.ConstraintLayout>

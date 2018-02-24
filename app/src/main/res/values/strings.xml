@@ -14,7 +14,7 @@
 
     <string name="checkbox_login_confirm_rights">I agree with the terms of use</string>
 
-    <string name="btn_text_login_email_registration">Login / Registration</string>
+    <string name="btn_text_login_email_registration">Login</string>
 
     <string name="btn_text_login_email_send_password">I forgot password</string>
 </resources>
