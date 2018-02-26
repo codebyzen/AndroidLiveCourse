@@ -4,16 +4,22 @@ import android.content.ContentValues
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-//TODO а куда тут пере
+
 
 open class FirebaseImpl {
     var fAuth: FirebaseAuth? = null // класс авторизации firebase
     var fUser: FirebaseUser? = null // класс пользователя firebase
 
+
+    init {
+        fAuth = FirebaseAuth.getInstance()
+    }
+
     /**
      * Высылаем пользователю email с подтверждением регистрации
      */
     fun sendVerifyEmail(){
+        Log.d("***", "FirebaseImpl -> sendVerifyEmail")
         if (fUser != null) {
             fUser?.sendEmailVerification()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -27,16 +33,33 @@ open class FirebaseImpl {
      * Проверяем авторизован ли уже пользователь и выполняем замыкание
      */
     fun checkAuth(afterAuthCheck: (Boolean) -> Unit) {
-        Log.d("***", "AuthCheck checkAuth")
-        //TODO тут эта функа возвращает promise надо разобраться что это и как обрабатывать
-        FirebaseAuth.getInstance().currentUser?.reload() // перегружаем чтобы из сессии не тянул
-        this.fAuth = FirebaseAuth.getInstance()
-        this.fUser = fAuth?.currentUser
-        if (this.fUser==null) {
+        Log.d("***", "FirebaseImpl -> checkAuth")
+
+
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser == null) {
+            Log.d("***", "FirebaseImpl -> checkAuth -> currentUser is NULL")
             afterAuthCheck(false)
-        } else {
-            afterAuthCheck(true)
         }
+
+        Log.d("***", "FirebaseImpl -> checkAuth -> currentUser = "+currentUser.toString())
+
+        val task = currentUser?.reload()
+
+        Log.d("***", "FirebaseImpl -> checkAuth -> task = "+task.toString())
+
+        //TODO: тут почему-то работает неправильно, вызывается одно за другим, потом разберусь
+        task?.addOnCompleteListener {
+            Log.d("***", "FirebaseImpl -> checkAuth -> addOnSuccessListener")
+            this.fUser = fAuth?.currentUser
+            afterAuthCheck(true)
+        }?.addOnFailureListener{
+            Log.d("***", "FirebaseImpl -> checkAuth -> addOnFailureListener")
+            afterAuthCheck(false)
+        }
+
+
     }
 
 }
