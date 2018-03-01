@@ -1,24 +1,14 @@
 package ru.iteye.androidcourseproject01.presentation.splashscreen
 
-import android.content.Context
 import android.os.Handler
 import android.util.Log
 import com.google.android.gms.common.GoogleApiAvailability
+import ru.iteye.androidcourseproject01.presentation.global.BasePresenter
 import ru.iteye.androidcourseproject01.presentation.view.splash.SplashView
 import ru.iteye.androidcourseproject01.repositories.auth.AuthRepositoryImpl
 
 
-class SplashPresenter {
-
-    private var view : SplashView? = null
-
-    fun getView() : SplashView? {
-        return view
-    }
-
-    fun setView(view : SplashView?){
-        this.view = view
-    }
+class SplashPresenter: BasePresenter<SplashView>() {
 
     /**
      * Возвращаем true если версия Google Play Service нормальная
@@ -27,8 +17,8 @@ class SplashPresenter {
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion")
         // Берем Google Play Service версии
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> getView() = "+getView().toString())
-        val context: Context? = getView()?.getActivityContext()
-        val googlePlayServiceCurrentVersion = context?.packageManager?.getPackageInfo("com.google.android.gms", 0)?.versionCode
+
+        val googlePlayServiceCurrentVersion = getContext()?.packageManager?.getPackageInfo("com.google.android.gms", 0)?.versionCode
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> googlePlayServiceCurrentVersion = "+googlePlayServiceCurrentVersion.toString())
         val googlePlayServiceNewestVersion = GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> googlePlayServiceNewestVersion = "+googlePlayServiceNewestVersion.toString())
@@ -104,32 +94,6 @@ class SplashPresenter {
         }, mSecondsDelayed)
     }
 }
-
-/*
-class AuthPresenter {
-    private var interactor = AuthInteractor(AuthRepositoryImpl())
-    private var view : AuthView? = null
-
-    fun getView() : AuthView? {
-        return view
-    }
-
-    fun setView(view : AuthView?){
-        this.view = view
-    }
-
-    fun authByMail(mail : String, pass: String) {
-        interactor.authByMail(mail, pass)
-    }
-
-}
-
-class AuthActivity : BaseActivity() {
-
-        private val AuthPresenter = AuthPresenter()
-
-}
- */
 
 
 

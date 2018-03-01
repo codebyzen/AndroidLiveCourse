@@ -1,27 +1,15 @@
 package ru.iteye.androidcourseproject01.presentation.authemail
 
-import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import android.text.TextUtils
 import android.util.Log
 import ru.iteye.androidcourseproject01.domain.auth.AuthInteractor
-import ru.iteye.androidcourseproject01.presentation.authchoose.AuthChooseActivity
+import ru.iteye.androidcourseproject01.presentation.global.BasePresenter
 import ru.iteye.androidcourseproject01.repositories.auth.AuthRepositoryImpl
 
 
-class AuthEmailPresenter {
+class AuthEmailPresenter: BasePresenter<AuthEmailActivity>() {
+
     private var interactor = AuthInteractor(AuthRepositoryImpl())
-
-
-    private var view : AuthEmailActivity? = null
-
-    fun getView() : AuthEmailActivity? {
-        return view
-    }
-
-    fun setView(view : AuthEmailActivity?){
-        this.view = view
-    }
 
     /**
      * Проверяем на валидность email

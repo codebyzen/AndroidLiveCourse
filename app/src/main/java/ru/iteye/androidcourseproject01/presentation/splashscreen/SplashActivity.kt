@@ -1,6 +1,5 @@
 package ru.iteye.androidcourseproject01.presentation.splashscreen
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +18,7 @@ class SplashActivity : BaseActivity(), SplashView {
         setContentView(R.layout.splash_screen)
 
         splashPresenter.setView(this)
+        splashPresenter.setContext(applicationContext)
 
         Log.d("CREATE", "SplashActivity")
         // проверяем Google Play Service и авторизацию
@@ -36,9 +36,6 @@ class SplashActivity : BaseActivity(), SplashView {
         startActivity(intent)
     }
 
-    override fun getActivityContext(): Context {
-        return this
-    }
 
     override fun showCustomAlertDialog(customMessage: String) {
         Log.d("***", "SplashActivity -> showCustomAlertDialog")
