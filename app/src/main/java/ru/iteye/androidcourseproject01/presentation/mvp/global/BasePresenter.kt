@@ -1,17 +1,16 @@
 package ru.iteye.androidcourseproject01.presentation.mvp.global
 
 import android.content.Context
-import android.view.View
 
-open class BasePresenter<T: View> {
+open class BasePresenter<View> {
 
-    var aView: T? = null
+    var aView: View? = null
 
-    fun getView() : T? {
+    fun getView() : View? {
         return aView
     }
 
-    fun setView(view : T?){
+    fun setView(view : View?){
         this.aView = view
     }
 
