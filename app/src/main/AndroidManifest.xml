@@ -12,23 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="ru.iteye.androidcourseproject01.presentation.splashscreen.SplashActivity">
+        <activity android:name="ru.iteye.androidcourseproject01.presentation.ui.splash_screen.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.authchoose.AuthChooseActivity" />
+        <activity android:name=".presentation.ui.auth_choose.AuthChooseActivity" />
 
 
-        <activity android:name=".presentation.authemail.AuthEmailActivity">
+        <activity android:name=".presentation.ui.auth_email.AuthEmailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidcourseproject01.presentation.authchoose.AuthChooseActivity" />
+                android:value="ru.iteye.androidcourseproject01.presentation.ui.auth_choose.AuthChooseActivity" />
         </activity>
 
-        <activity android:name=".presentation.friendslist.FriendsListActivity" />
+        <activity android:name=".presentation.ui.friends_list.FriendsListActivity" />
+
 
     </application>
 

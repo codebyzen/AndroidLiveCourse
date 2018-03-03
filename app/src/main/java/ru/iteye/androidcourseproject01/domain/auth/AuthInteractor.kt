@@ -1,7 +1,7 @@
 package ru.iteye.androidcourseproject01.domain.auth
 
 import android.util.Log
-import ru.iteye.androidcourseproject01.repositories.auth.AuthRepository
+import ru.iteye.androidcourseproject01.domain.global.repositories.AuthRepository
 
 //TODO этот парень уже знает, что есть модель, которая умеет авторизовывать
 //TODO обычно, это репозиторий. Для упрощения, я инициализирую репозиторий прям через конструктор, но позже мы сделаем чуть-чуть иначе

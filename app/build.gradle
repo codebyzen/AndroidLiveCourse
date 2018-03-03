@@ -35,16 +35,16 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation "com.android.support:appcompat-v7:${libraries.appcompatV7}"
 
-    implementation 'com.android.support:support-media-compat:27.1.0'
-    implementation 'com.android.support:animated-vector-drawable:27.1.0'
-    implementation 'com.android.support:support-v4:27.1.0'
+    implementation "com.android.support:support-media-compat:${libraries.supportMediaCompat}"
+    implementation "com.android.support:animated-vector-drawable:${libraries.animatedVectorDrawable}"
+    implementation "com.android.support:support-v4:${libraries.supportV4}"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support.constraint:constraint-layout:${libraries.constraintLayout}"
 
-    implementation "com.google.firebase:firebase-auth:${libraries.firebaseAuth}"
-    implementation "com.google.firebase:firebase-database:${libraries.firebaseDatabase}"
+    implementation "com.google.firebase:firebase-auth:${libraries.firebase}"
+    implementation "com.google.firebase:firebase-database:${libraries.firebase}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
@@ -52,13 +52,13 @@ dependencies {
 
     compile "com.squareup.retrofit2:retrofit:${libraries.squareupRetrofit2}"
     compile "io.reactivex.rxjava2:rxjava:${libraries.rxjava2}"
-    compile "io.reactivex.rxjava2:rxandroid:${libraries.rxandroid}"
+    compile "io.reactivex.rxjava2:rxandroid:${libraries.rxjava2}"
     compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${libraries.rxjava2Adapter}"
     compile "com.squareup.picasso:picasso:${libraries.picasso}"
     compile "com.android.support:multidex:${libraries.multidex}"
     compile "com.vk:androidsdk:${libraries.androidsdk}"
 
-    compile 'com.android.support:design:27.1.0'
+    compile "com.android.support:design:${libraries.design}"
 }
 
 
