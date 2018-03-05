@@ -19,11 +19,16 @@ class SplashActivity : BaseActivity(), SplashView {
         setContentView(R.layout.splash_screen)
 
         splashPresenter.setView(this)
-        splashPresenter.setContext(applicationContext)
+        splashPresenter.setContext(ru.iteye.androidcourseproject01.domain.global.models.Application.appContext)
 
         Log.d("CREATE", "SplashActivity")
         // проверяем Google Play Service и авторизацию
         splashPresenter.startupCheckList()
+    }
+
+    override fun showError(message: String) {
+        Log.d("***", "SplashActivity -> showError")
+        showCustomAlert(message)
     }
 
     // покажем активность с вариантами аутентификации
@@ -37,10 +42,5 @@ class SplashActivity : BaseActivity(), SplashView {
         startActivity(intent)
     }
 
-
-    override fun showCustomAlertDialog(customMessage: String) {
-        Log.d("***", "SplashActivity -> showCustomAlertDialog")
-        showCustomAlert(customMessage)
-    }
 
 }

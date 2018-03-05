@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.android.gms.common.GoogleApiAvailability
 import ru.iteye.androidcourseproject01.presentation.mvp.global.BasePresenter
 import ru.iteye.androidcourseproject01.data.repositories.AuthRepositoryImpl
+import ru.iteye.androidcourseproject01.domain.global.models.Application
 
 
 class SplashPresenter: BasePresenter<SplashView>() {
@@ -12,6 +13,7 @@ class SplashPresenter: BasePresenter<SplashView>() {
     private fun checkForGooglePlayServiceVersion(): Boolean {
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion")
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> getView() = "+getView().toString())
+
 
         val googlePlayServiceCurrentVersion = getContext()?.packageManager?.getPackageInfo("com.google.android.gms", 0)?.versionCode
         Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> googlePlayServiceCurrentVersion = "+googlePlayServiceCurrentVersion.toString())
@@ -53,7 +55,7 @@ class SplashPresenter: BasePresenter<SplashView>() {
             Log.d("***", "SplashPresenter -> startupCheckList -> waitChecksResults")
             if (!checkForGooglePlayServiceVersion()) {
                 Log.d("***", "SplashPresenter -> startupCheckList -> GooglePlayServiceVersion need up to date!")
-                getView()?.showCustomAlertDialog("Update Google Services!")
+                getView()?.showError("Update Google Services!")
             } else {
                 checkForAuth()
             }

@@ -4,7 +4,7 @@ import android.content.Context
 
 open class BasePresenter<View> {
 
-    var aView: View? = null
+    private var aView: View? = null
 
     fun getView() : View? {
         return aView
@@ -13,6 +13,7 @@ open class BasePresenter<View> {
     fun setView(view : View?){
         this.aView = view
     }
+
 
     private var aContext : Context? = null
 

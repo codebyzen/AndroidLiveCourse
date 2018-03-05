@@ -27,6 +27,10 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         Log.d(TAG, "AuthEmail created!")
     }
 
+    override fun showError(message: String) {
+        showCustomAlert(message)
+    }
+
     fun onBtnClickAuth(view: View){
         Log.d("***","AuthEmailActivity -> onBtnClickAuth")
 
@@ -74,7 +78,7 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
     }
 
     override fun onFailedAuth() {
-        showCustomAlert("Something wrong while authentication!")
+        showError("Something wrong while authentication!")
     }
 
 }

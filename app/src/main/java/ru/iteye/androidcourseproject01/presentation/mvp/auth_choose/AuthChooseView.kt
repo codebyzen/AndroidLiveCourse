@@ -1,5 +1,7 @@
 package ru.iteye.androidcourseproject01.presentation.mvp.auth_choose
 
-interface AuthChooseView {
+import ru.iteye.androidcourseproject01.presentation.view.base.BaseView
+
+interface AuthChooseView: BaseView {
     fun startAuthEmailActivity()
 }

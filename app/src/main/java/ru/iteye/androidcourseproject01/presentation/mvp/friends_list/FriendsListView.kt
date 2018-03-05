@@ -1,4 +1,6 @@
 package ru.iteye.androidcourseproject01.presentation.mvp.friends_list
 
-interface FriendsListView {
+import ru.iteye.androidcourseproject01.presentation.view.base.BaseView
+
+interface FriendsListView: BaseView {
 }
