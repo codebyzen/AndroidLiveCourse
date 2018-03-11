@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.iteye.androidcourseproject01.presentation.ui.global.BaseActivity">
+    tools:context="ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity">
 
     <TextView
         android:id="@+id/textView4"

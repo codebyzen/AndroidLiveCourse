@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.iteye.androidcourseproject01">
+    package="ru.iteye.androidlivecourseapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,25 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".domain.global.models.Application">
+        android:name="ru.iteye.androidlivecourseapp.domain.global.models.Application">
 
-        <activity android:name="ru.iteye.androidcourseproject01.presentation.ui.splash_screen.SplashActivity">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.splash_screen.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.ui.auth_choose.AuthChooseActivity" />
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
 
 
-        <activity android:name=".presentation.ui.auth_email.AuthEmailActivity">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidcourseproject01.presentation.ui.auth_choose.AuthChooseActivity" />
+                android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
         </activity>
 
-        <activity android:name=".presentation.ui.friends_list.FriendsListActivity" />
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity" />
 
 
     </application>

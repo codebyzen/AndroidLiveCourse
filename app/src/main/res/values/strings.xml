@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">AndroidCourseProject_01</string>
+    <string name="app_name">AndroidLiveCourseApp</string>
     <string name="btn_text_login_vk">Sign up VK</string>
     <string name="btn_text_login_fb">Sign up FB</string>
     <string name="btn_text_login_email">Sign up Email</string>
 
-    <string name="text_splash_screen_loading">Loading...</string>
+    <string name="text_splash_screen_loading">Loading…</string>
 
     <string name="text_login_email">Email</string>
     <string name="text_login_input_email_placeholder">myname@domain.tld</string>

@@ -31,7 +31,7 @@ ext {
 
     configuration = [
 
-            package          : "ru.iteye.androidcourseproject_01",
+            package          : "ru.iteye.androidlivecourseapp",
             compileSdkVersion: 27,
             targetSdkVersion : 27,
             minSdkVersion    : 19,
@@ -44,7 +44,7 @@ ext {
             rxjava2                     : "2.0.1",
             rxjava2Adapter              : "1.0.0",
             picasso                     : "2.5.0",
-            multidex                    : "1.0.2",
+            multidex                    : "1.0.3",
             androidsdk                  : "1.6.8",
             appcompatV7                 : "27.1.0",
             supportMediaCompat          : "27.1.0",
