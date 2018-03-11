@@ -2,7 +2,6 @@ package ru.iteye.androidlivecourseapp.presentation.mvp.auth_email
 
 import android.text.TextUtils
 import android.util.Log
-import com.google.firebase.auth.FirebaseUser
 import ru.iteye.androidlivecourseapp.domain.auth.AuthInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.data.repositories.AuthRepositoryImpl
@@ -18,28 +17,36 @@ class AuthEmailPresenter: BasePresenter<AuthEmailActivity>() {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
-    private fun observerListener(newValue:FirebaseUser?){
-        Log.d("***", "AuthEmailPresenter -> observerListener -> " + newValue.toString())
-    }
 
     fun signIn(email: String, password: String) {
         Log.d("***", "AuthEmailPresenter -> signIn")
 
-        interactor.authByMail(email, password, ::afterRegistration)
-
+        interactor.authByMail(email, password)
+                .subscribe({ isAuthSuccess ->
+                    Log.d("***", "AuthEmailPresenter -> observerListener -> observableAuthResult: " + isAuthSuccess.toString())
+                    afterAuthentification(isAuthSuccess)
+                })
     }
 
 
-    private fun afterRegistration(isNewUser: Boolean?) {
+    private fun afterAuthentification(isUserAuthSuccess: Boolean?) {
 
-        when (isNewUser) {
-            true -> onUserRegistered()
-            false -> onUserAuthenticated()
-            null -> onUserAuthError()
+        Log.d("***", "AuthEmailPresenter -> afterRegistration -> "+isUserAuthSuccess.toString())
+
+        when (isUserAuthSuccess) {
+            true -> onUserAuthenticated()
+            false -> onUserAuthError()
+            null -> onFirebaseAuthError()
         }
-        Log.d("***", "AuthEmailPresenter -> afterRegistration -> success -> "+isNewUser.toString())
-
     }
+
+
+
+    private fun onFirebaseAuthError(){
+        getView()?.onFailedFirebaseAuth()
+    }
+
+
 
     private fun onUserRegistered() {
         getView()?.onUserRegistered()

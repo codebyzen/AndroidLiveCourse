@@ -9,4 +9,5 @@ interface AuthEmailView: BaseView {
     fun onUserRegistered()
     fun onSuccessAuth()
     fun onFailedAuth()
+    fun onFailedFirebaseAuth()
 }

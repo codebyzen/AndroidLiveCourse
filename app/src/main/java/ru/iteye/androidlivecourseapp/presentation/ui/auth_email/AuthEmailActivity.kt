@@ -78,7 +78,11 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
     }
 
     override fun onFailedAuth() {
-        showError("Something wrong while authentication!")
+        showError("User is absent or login/password wrong!")
+    }
+
+    override fun onFailedFirebaseAuth(){
+        showError("Something wrong with Firebase!")
     }
 
 }

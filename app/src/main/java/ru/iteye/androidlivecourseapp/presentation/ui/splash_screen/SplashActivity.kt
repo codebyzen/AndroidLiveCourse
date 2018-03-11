@@ -19,7 +19,6 @@ class SplashActivity : BaseActivity(), SplashView {
         setContentView(R.layout.splash_screen)
 
         splashPresenter.setView(this)
-//        splashPresenter.setContext(ru.iteye.androidcourseproject01.domain.global.models.Application.appContext)
 
         Log.d("CREATE", "SplashActivity")
         // проверяем Google Play Service и авторизацию

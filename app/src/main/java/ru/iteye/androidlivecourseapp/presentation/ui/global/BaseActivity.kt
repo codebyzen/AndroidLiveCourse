@@ -45,16 +45,7 @@ open class BaseActivity : AppCompatActivity(), BaseView {
         AlertDialog.Builder(this)
                 .setMessage(customMessage)
                 .setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
-
-
-        val dialog = AlertDialog.Builder(this)
-        val dialogView = layoutInflater.inflate(R.layout.alert_dialog, null)
-        val alertMessage = dialogView.findViewById<TextView>(R.id.textAlertMessage)
-        dialog.setView(dialogView)
-        alertMessage.text = customMessage
-        val customDialog = dialog.create()
-        customDialog.show()
-
+                .show()
     }
 
     override fun showError(message: String) {
