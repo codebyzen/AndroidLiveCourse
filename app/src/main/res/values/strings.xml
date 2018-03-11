@@ -17,4 +17,6 @@
     <string name="btn_text_login_email_registration">Login</string>
 
     <string name="btn_text_login_email_send_password">I forgot password</string>
+    <string name="btn_text_ok">OK</string>
+
 </resources>

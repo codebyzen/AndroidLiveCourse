@@ -10,9 +10,10 @@ import android.widget.TextView
 import android.view.Gravity
 import android.widget.FrameLayout
 import ru.iteye.androidcourseproject01.R
+import ru.iteye.androidcourseproject01.presentation.view.base.BaseView
 
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +41,25 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showCustomAlert(customMessage: String){
+    fun showCustomAlert(customMessage: String) {
+        AlertDialog.Builder(this)
+                .setMessage(customMessage)
+                .setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
+
+
         val dialog = AlertDialog.Builder(this)
-        val dialogView = layoutInflater.inflate(R.layout.alert_dialog,null)
+        val dialogView = layoutInflater.inflate(R.layout.alert_dialog, null)
         val alertMessage = dialogView.findViewById<TextView>(R.id.textAlertMessage)
         dialog.setView(dialogView)
         alertMessage.text = customMessage
         val customDialog = dialog.create()
         customDialog.show()
 
+    }
+
+    override fun showError(message: String) {
+        Log.d("***", "BaseActivity -> showError")
+        showCustomAlert(message)
     }
 
 }
