@@ -1,6 +1,14 @@
 package ru.iteye.androidlivecourseapp.presentation.mvp.global
 
+import io.reactivex.disposables.CompositeDisposable
+
 open class BasePresenter<View> {
+
+    val disposables = CompositeDisposable()
+
+    fun destroyObserver(){
+        disposables.clear()
+    }
 
     private var aView: View? = null
 

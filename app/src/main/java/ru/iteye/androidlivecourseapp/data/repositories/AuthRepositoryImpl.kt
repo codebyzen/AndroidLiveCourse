@@ -17,6 +17,7 @@ class AuthRepositoryImpl : AuthRepository {
 
         return Observable.create<Boolean> { subscriber ->
             Log.d("***", "AuthRepositoryImpl -> authByMail -> Observable.create ($email/$password)")
+            Log.d("***", "AuthRepositoryImpl -> authByMail -> thread name: " + Thread.currentThread().name)
 
             try {
                 firebase.fAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener({ task ->
@@ -41,33 +42,12 @@ class AuthRepositoryImpl : AuthRepository {
         }
     }
 
-
-
-
-
     override fun checkAuth(afterCheck: (Boolean?) -> Unit){
         firebase.checkAuth(afterCheck)
     }
 
 
 
-    override fun registrationByEmail(email: String, password: String) {
-        Log.d("***", "AuthEmailRepository -> signInEmail ($email/$password)")
 
-        val registrationResults =  firebase.fAuth?.createUserWithEmailAndPassword(email, password)
-
-        if (registrationResults==null) {
-            Log.d("***", "AuthEmailRepository -> signInEmail -> registrationResults is NULL")
-            this.authByMail(email, password)
-        }
-
-        registrationResults?.addOnCompleteListener({ task ->
-            if (task.isSuccessful) {
-                Log.d("***", "AuthEmailRepository -> signInEmail -> addOnCompleteListener -> task.isSuccessful")
-                firebase.fUser = firebase.fAuth?.currentUser
-                firebase.sendVerifyEmail()
-            }
-        })
-    }
 
 }

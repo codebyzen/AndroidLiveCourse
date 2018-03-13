@@ -9,6 +9,7 @@ import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChoosePresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChooseView
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
+import ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity
 
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
@@ -27,9 +28,21 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
         Log.d("***", "AuthChooseActivity -> ActivityAuthChoosePresenter")
     }
 
+
+
     fun onBtnClickEmailType(view: View){
         Log.d("***", "AuthChooseActivity -> onBtnClickEmailType")
         authChoosePresenter.startAuthEmailActivity()
+    }
+
+    fun onBtnClickRegEmail(view: View) {
+        Log.d("***", "AuthChooseActivity -> onBtnClickRegEmail")
+        authChoosePresenter.startRegEmailActivity()
+    }
+
+    override fun startRegEmailActivity(){
+        val intent = Intent(this, RegEmailActivity::class.java)
+        startActivity(intent)
     }
 
     override fun startAuthEmailActivity(){

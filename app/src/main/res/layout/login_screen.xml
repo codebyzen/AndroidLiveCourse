@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="@string/btn_text_login_vk"
+        android:text="@string/btn_text_choose_login_vk"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/button_login_fb" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/btn_text_login_fb"
+        android:text="@string/btn_text_choose_login_fb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_login_email"
         app:layout_constraintHorizontal_bias="0.439"
@@ -40,4 +40,18 @@
         android:text="@string/btn_text_login_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/button_login_fb" />
+
+    <Button
+        android:id="@+id/button_reg_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/btn_text_reg_email"
+        android:onClick="onBtnClickRegEmail"
+        android:text="@string/btn_text_reg_email"
+        app:layout_constraintEnd_toEndOf="@+id/button_login_fb"
+        app:layout_constraintStart_toStartOf="@+id/button_login_fb"
+        app:layout_constraintTop_toBottomOf="@+id/button_login_fb" />
 </android.support.constraint.ConstraintLayout>

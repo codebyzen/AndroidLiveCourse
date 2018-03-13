@@ -1,47 +1,47 @@
-package ru.iteye.androidlivecourseapp.presentation.ui.auth_email
+package ru.iteye.androidlivecourseapp.presentation.ui.reg_email
 
-import android.util.Log
-import android.widget.EditText
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
+import android.widget.CheckBox
+import android.widget.EditText
 import ru.iteye.androidlivecourseapp.R
-import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailPresenter
+import ru.iteye.androidlivecourseapp.presentation.mvp.reg_email.RegEmailPresenter
+import ru.iteye.androidlivecourseapp.presentation.mvp.reg_email.RegEmailView
 import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
-import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailView
+import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.utils.ValidateUtils
 
 
-class AuthEmailActivity : BaseActivity(), AuthEmailView {
+class RegEmailActivity : BaseActivity(), RegEmailView {
 
-
-    private val authEmailPresenter = AuthEmailPresenter()
+    private val regEmailPresenter = RegEmailPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_screen_email)
+        setContentView(R.layout.reg_screen_email)
 
-        authEmailPresenter.setView(this)
-        Log.d("***", "AuthEmailActivity created!")
+        regEmailPresenter.setView(this)
+        Log.d("***", "RegEmailActivity created!")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        authEmailPresenter.destroyObserver()
+        regEmailPresenter.destroyObserver()
     }
 
     override fun showError(message: String) {
         showCustomAlert(message)
     }
 
-    fun onBtnClickAuth(view: View){
-        Log.d("***","AuthEmailActivity -> onBtnClickAuth")
+    fun onBtnClickReg(view: View){
+        Log.d("***","RegEmailActivity -> onBtnClickReg")
 
         if (validateFormEmailAuth()) {
             val email = this.findViewById<EditText>(R.id.input_email).text.toString()
             val password = this.findViewById<EditText>(R.id.input_password).text.toString()
-            authEmailPresenter.signIn(email, password)
+            regEmailPresenter.registration(email, password)
         }
     }
 
@@ -49,6 +49,12 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
 
         val email = this.findViewById<EditText>(R.id.input_email)
         val password = this.findViewById<EditText>(R.id.input_password)
+        val checkBox = this.findViewById<CheckBox>(R.id.checkbox_agree_terms)
+
+        if (!checkBox.isChecked) {
+            onTermsIsNotAccepted(checkBox)
+            return false
+        }
 
         if (!ValidateUtils.isValidEmail(email.text)) {
             onWrongEmail(email)
@@ -63,6 +69,11 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         return true
     }
 
+
+    override fun onTermsIsNotAccepted(checkBox: CheckBox) {
+        checkBox.error = getString(R.string.terms_is_not_accepted)
+    }
+
     override fun onWrongEmail(email: EditText) {
         email.error = getString(R.string.wrong_email)
     }
@@ -71,16 +82,21 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         password.error = getString(R.string.wrong_password)
     }
 
-    override fun onSuccessAuth() {
+    override fun onUserRegistered(){
+        showMessage(getString(R.string.user_registered), true)
+        onSuccessReg()
+    }
+
+    override fun onSuccessReg() {
         val intent = Intent(this, FriendsListActivity::class.java).apply {}
         startActivity(intent)
     }
 
-    override fun onFailedAuth() {
-        showError(getString(R.string.failed_auth))
+    override fun onFailedReg() {
+        showError(getString(R.string.failed_reg))
     }
 
-    override fun onFailedFirebaseAuth(){
+    override fun onFailedFirebaseReg(){
         showError(getString(R.string.failed_firebase))
     }
 

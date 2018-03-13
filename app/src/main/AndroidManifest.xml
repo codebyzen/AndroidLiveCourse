@@ -29,6 +29,12 @@
                 android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
         </activity>
 
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
+        </activity>
+
         <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity" />
 
 

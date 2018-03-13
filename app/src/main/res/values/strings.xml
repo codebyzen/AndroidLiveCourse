@@ -1,22 +1,47 @@
 <resources>
+
+    <!-- APPLICATION -->
     <string name="app_name">AndroidLiveCourseApp</string>
-    <string name="btn_text_login_vk">Sign up VK</string>
-    <string name="btn_text_login_fb">Sign up FB</string>
-    <string name="btn_text_login_email">Sign up Email</string>
 
-    <string name="text_splash_screen_loading">Loading…</string>
 
+    <!-- auth_choose -->
+    <string name="btn_text_choose_login_vk">Sign up VK</string>
+    <string name="btn_text_choose_login_fb">Sign up FB</string>
+    <string name="btn_text_choose_login_email">Sign up Email</string>
+    <string name="btn_text_reg_email">Sign in Email</string>
+
+
+    <!-- reg_email -->
+    <string name="header_reg_email">Sign up with Email</string>
+    <string name="btn_text_registration_email">Registration</string>
+    <string name="checkbox_registration_confirm_rights">I agree with the terms of use</string>
+    <string name="terms_is_not_accepted">Required accept terms and rules!</string>
+    <string name="user_registered">New user registered!</string>
+    <string name="failed_reg">User is already exist or try later!</string>
+
+
+    <!-- auth_email -->
+    <string name="header_login_email">Sign in with Email</string>
+    <string name="btn_text_login_email">Login</string>
+    <string name="btn_text_login_email_send_password">I forgot password</string>
+    <string name="failed_auth">User is absent or login/password wrong!</string>
+
+
+    <!-- auth/reg form -->
     <string name="text_login_email">Email</string>
     <string name="text_login_input_email_placeholder">myname@domain.tld</string>
-
     <string name="text_login_password">Password</string>
     <string name="text_login_input_password_placeholder">your secret phrase</string>
+    <string name="wrong_email">Required correct email!</string>
+    <string name="wrong_password">Must be 6 symbols or more!</string>
 
-    <string name="checkbox_login_confirm_rights">I agree with the terms of use</string>
 
-    <string name="btn_text_login_email_registration">Login</string>
+    <!-- splash_screen -->
+    <string name="text_splash_screen_loading">Loading…</string>
 
-    <string name="btn_text_login_email_send_password">I forgot password</string>
+
+    <!-- some other not unique strings -->
     <string name="btn_text_ok">OK</string>
+    <string name="failed_firebase">Something wrong with Firebase!</string>
 
 </resources>

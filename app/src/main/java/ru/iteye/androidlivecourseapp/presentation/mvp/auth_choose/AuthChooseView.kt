@@ -4,4 +4,5 @@ import ru.iteye.androidlivecourseapp.presentation.view.base.BaseView
 
 interface AuthChooseView: BaseView {
     fun startAuthEmailActivity()
+    fun startRegEmailActivity()
 }
