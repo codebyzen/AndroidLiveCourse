@@ -15,11 +15,6 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     private val authChoosePresenter = AuthChoosePresenter()
 
-    override fun showError(message: String) {
-        Log.d("***", "AuthChooseActivity -> showError")
-        showCustomAlert(message)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_screen)

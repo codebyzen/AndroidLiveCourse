@@ -31,10 +31,6 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
         regEmailPresenter.destroyObserver()
     }
 
-    override fun showError(message: String) {
-        showCustomAlert(message)
-    }
-
     fun onBtnClickReg(view: View){
         Log.d("***","RegEmailActivity -> onBtnClickReg")
 
@@ -84,10 +80,6 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
 
     override fun onUserRegistered(){
         showMessage(getString(R.string.user_registered), true)
-        onSuccessReg()
-    }
-
-    override fun onSuccessReg() {
         val intent = Intent(this, FriendsListActivity::class.java).apply {}
         startActivity(intent)
     }
@@ -96,9 +88,6 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
         showError(getString(R.string.failed_reg))
     }
 
-    override fun onFailedFirebaseReg(){
-        showError(getString(R.string.failed_firebase))
-    }
 
 }
 

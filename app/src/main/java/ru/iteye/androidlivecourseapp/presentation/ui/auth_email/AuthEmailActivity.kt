@@ -31,10 +31,6 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         authEmailPresenter.destroyObserver()
     }
 
-    override fun showError(message: String) {
-        showCustomAlert(message)
-    }
-
     fun onBtnClickAuth(view: View){
         Log.d("***","AuthEmailActivity -> onBtnClickAuth")
 

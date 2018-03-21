@@ -41,16 +41,12 @@ open class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    fun showCustomAlert(customMessage: String) {
-        AlertDialog.Builder(this)
-                .setMessage(customMessage)
-                .setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
-                .show()
-    }
-
     override fun showError(message: String) {
         Log.d("***", "BaseActivity -> showError")
-        showCustomAlert(message)
+        AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
+                .show()
     }
 
 }

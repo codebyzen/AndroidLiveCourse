@@ -7,6 +7,7 @@ import ru.iteye.androidlivecourseapp.domain.auth.AuthInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.data.repositories.AuthRepositoryImpl
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
+import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
 import java.lang.Thread.currentThread
 
 
@@ -29,22 +30,18 @@ class AuthEmailPresenter: BasePresenter<AuthEmailActivity>() {
         )
     }
 
-    private fun afterAuthentification(isUserAuthSuccess: Boolean?) {
+    private fun afterAuthentification(isUserAuthSuccess: ErrorsTypes) {
 
-        Log.d("***", "AuthEmailPresenter -> afterAuthentification -> "+isUserAuthSuccess.toString())
+        Log.d("***", "AuthEmailPresenter -> afterAuthentification -> isUserAuthSuccess: "+isUserAuthSuccess.toString())
 
         when (isUserAuthSuccess) {
-            true -> onUserAuthenticated()
-            false -> onUserAuthError()
-            null -> onFirebaseAuthError()
+            ErrorsTypes.ALLOK -> onUserAuthenticated()
+            ErrorsTypes.AUTHERROR -> onUserAuthError()
+            ErrorsTypes.USERNOTAUTH -> onUserAuthError()
         }
     }
 
 
-
-    private fun onFirebaseAuthError(){
-        getView()?.onFailedFirebaseAuth()
-    }
 
     private fun onUserAuthenticated() {
         getView()?.onSuccessAuth()

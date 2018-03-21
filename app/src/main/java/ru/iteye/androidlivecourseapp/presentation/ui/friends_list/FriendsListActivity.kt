@@ -21,8 +21,4 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
         Log.d("***", "FriendsListActivity CREATE")
     }
 
-    override fun showError(message: String) {
-        showCustomAlert(message)
-    }
-
 }

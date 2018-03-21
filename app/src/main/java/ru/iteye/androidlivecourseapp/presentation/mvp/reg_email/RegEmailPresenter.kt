@@ -6,6 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import ru.iteye.androidlivecourseapp.data.repositories.RegRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.reg.RegInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
+import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
 
 
 class RegEmailPresenter: BasePresenter<RegEmailView>() {
@@ -30,23 +31,19 @@ class RegEmailPresenter: BasePresenter<RegEmailView>() {
     }
 
 
-    private fun afterRegistration(isUserRegSuccess: Boolean?) {
+    private fun afterRegistration(isUserRegSuccess: ErrorsTypes) {
 
         Log.d("***", "RegEmailPresenter -> afterRegistration -> "+isUserRegSuccess.toString())
 
         when (isUserRegSuccess) {
-            true -> onUserRegistred()
-            false -> onUserRegError()
-            null -> onFirebaseRegError()
+            ErrorsTypes.ALLOK -> onUserRegistred()
+            ErrorsTypes.AUTHERROR -> onUserRegError()
+            ErrorsTypes.USERNOTAUTH -> onUserRegError()
         }
     }
 
-    private fun onFirebaseRegError(){
-        getView()?.onFailedFirebaseReg()
-    }
-
     private fun onUserRegistred() {
-        getView()?.onSuccessReg()
+        getView()?.onUserRegistered()
     }
 
     private fun onUserRegError() {

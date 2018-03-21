@@ -22,9 +22,13 @@ class SplashActivity : BaseActivity(), SplashView {
 
         Log.d("CREATE", "SplashActivity")
         // проверяем Google Play Service и авторизацию
-        splashPresenter.startupCheckList()
+        splashPresenter.startupCheck()
     }
 
+    // показываем сообщение о необходимости обновиться
+    override fun googlePlayServiceError(){
+        showError(getString(R.string.error_google_play_version))
+    }
 
     // покажем активность с вариантами аутентификации
     override fun startAuthChooseActivity() {

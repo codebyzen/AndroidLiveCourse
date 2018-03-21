@@ -1,74 +1,47 @@
 package ru.iteye.androidlivecourseapp.presentation.mvp.splash_screen
 
-import android.os.Handler
 import android.util.Log
-import ru.iteye.androidlivecourseapp.data.repositories.AuthRepositoryImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import ru.iteye.androidlivecourseapp.data.repositories.SplashRepositoryImpl
+import ru.iteye.androidlivecourseapp.domain.splash.SplashInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
-import ru.iteye.androidlivecourseapp.utils.GooglePlayUtils
+import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
 
 
 class SplashPresenter : BasePresenter<SplashView>() {
 
-    private fun checkForGooglePlayServiceVersion(): Boolean {
-        Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion")
+    private var interactor = SplashInteractor(SplashRepositoryImpl())
 
-
-        val googlePlayServiceCurrentVersion = GooglePlayUtils.getGooglePlayCurrentVersion()
-        Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> googlePlayServiceCurrentVersion = " + googlePlayServiceCurrentVersion.toString())
-        val googlePlayServiceNewestVersion = GooglePlayUtils.getGooglePlayNewestVersion()
-        Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion -> googlePlayServiceNewestVersion = " + googlePlayServiceNewestVersion.toString())
-
-        if (googlePlayServiceCurrentVersion == null) {
-            return false
-        }
-
-        if (googlePlayServiceNewestVersion == null) {
-            return true
-        }
-
-        Log.d("*** VERSION CODE need", googlePlayServiceNewestVersion.toString())
-        Log.d("***", "SplashPresenter -> checkForGooglePlayServiceVersion : $googlePlayServiceCurrentVersion >= $googlePlayServiceNewestVersion")
-        return googlePlayServiceCurrentVersion >= googlePlayServiceNewestVersion
-    }
-
-    private fun checkForAuth() {
-        Log.d("***", "SplashPresenter -> checkForAuth")
-        val authRepositoryImpl = AuthRepositoryImpl()
-
-        authRepositoryImpl.checkAuth(::afterAuthCheck)
-    }
-
-    private fun afterAuthCheck(isAuth: Boolean?) {
+    private fun afterCheck(results: ErrorsTypes) {
         Log.d("***", "SplashPresenter -> afterAuthCheck")
         //TODO: при отсутствии пользователя показывается сначала тру потом фолс. Потом разберусь.
-        if (isAuth == true) {
-            Log.d("***", "SplashPresenter -> afterAuthCheck -> isAuth = true")
-            getView()?.startFriendsListActivity()
-        } else {
-            Log.d("***", "SplashPresenter -> afterAuthCheck -> isAuth = false")
-            getView()?.startAuthChooseActivity()
+        Log.d("***", "SplashPresenter -> afterCheck -> results = " + results.toString())
+        when (results) {
+            ErrorsTypes.ALLOK -> getView()?.startFriendsListActivity()
+            ErrorsTypes.AUTHERROR -> getView()?.startAuthChooseActivity() //TODO: убрать
+            ErrorsTypes.GOOGLEPLAYERROR -> getView()?.googlePlayServiceError()
+            ErrorsTypes.USERISNULL -> getView()?.startAuthChooseActivity() //TODO: убрать
+            ErrorsTypes.ERROR_USER_NOT_FOUND -> getView()?.startAuthChooseActivity()
         }
     }
 
-    fun startupCheckList() {
+    fun startupCheck() {
         Log.d("***", "SplashPresenter -> startupCheckList")
-        //TODO: реализовать асинхронность
-        waitChecksResults(3000, {
-            Log.d("***", "SplashPresenter -> startupCheckList -> waitChecksResults")
-            if (!checkForGooglePlayServiceVersion()) {
-                Log.d("***", "SplashPresenter -> startupCheckList -> GooglePlayServiceVersion need up to date!")
-                getView()?.showError("Update Google Services!")
-            } else {
-                checkForAuth()
-            }
-        })
+
+        disposables.add(
+            interactor.startupCheck()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ isCheckSuccess ->
+                    Log.d("***", "SplashPresenter -> startupCheckList -> thread name: " + Thread.currentThread().name)
+                    Log.d("***", "SplashPresenter -> startupCheckList -> observerListener -> observableAuthResult: " + isCheckSuccess.toString())
+                    afterCheck(isCheckSuccess)
+                })
+        )
+
     }
 
-    private fun waitChecksResults(mSecondsDelayed: Long, checksPayload: () -> Unit) {
-        Handler().postDelayed({
-            checksPayload()
-        }, mSecondsDelayed)
-    }
 }
 
 

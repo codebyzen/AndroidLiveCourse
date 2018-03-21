@@ -4,6 +4,9 @@
     <string name="app_name">AndroidLiveCourseApp</string>
 
 
+    <!-- Error messages -->
+    <string name="error_google_play_version">To run this application You need to update GooglePlay Services!</string>
+
     <!-- auth_choose -->
     <string name="btn_text_choose_login_vk">Sign up VK</string>
     <string name="btn_text_choose_login_fb">Sign up FB</string>
