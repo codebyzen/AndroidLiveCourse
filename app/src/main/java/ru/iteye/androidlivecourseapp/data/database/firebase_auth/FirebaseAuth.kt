@@ -8,15 +8,6 @@ import com.google.android.gms.tasks.Tasks
 import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeoutException
-import com.google.android.gms.tasks.Task
-import android.support.annotation.NonNull
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuthException
-import android.widget.Toast
-import jdk.nashorn.internal.runtime.ECMAException.getException
-
-
 
 
 open class FirebaseAuth {
