@@ -1,4 +1,4 @@
-package ru.iteye.androidlivecourseapp.utils
+package ru.iteye.androidlivecourseapp.utils.errors
 
 
 enum class ErrorsTypes(val errorType: Int) {

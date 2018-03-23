@@ -6,7 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import ru.iteye.androidlivecourseapp.data.repositories.SplashRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.splash.SplashInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
-import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 
 class SplashPresenter : BasePresenter<SplashView>() {

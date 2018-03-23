@@ -2,10 +2,13 @@ package ru.iteye.androidlivecourseapp.data.database.firebase_auth
 
 import android.content.ContentValues
 import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.android.gms.tasks.Tasks
-import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
+import ru.iteye.androidlivecourseapp.data.repositories.listeners.TaskAuthFirebaseListener
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
+import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpection
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.TimeoutException
 
@@ -22,7 +25,7 @@ open class FirebaseAuth {
     /**
      * Высылаем пользователю email с подтверждением регистрации
      */
-    fun sendVerifyEmail(){
+    fun sendVerifyEmail() {
         Log.d("***", "FirebaseAuth -> sendVerifyEmail")
         if (fUser != null) {
             fUser?.sendEmailVerification()?.addOnCompleteListener { task ->
@@ -40,11 +43,11 @@ open class FirebaseAuth {
         if (currentUser == null) {
             callback(ErrorsTypes.ERROR_USER_NOT_FOUND)
         } else {
-           currentUser.reload().addOnCompleteListener { task ->
-               if (task.isSuccessful) {
+            currentUser.reload().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     callback(ErrorsTypes.ALLOK)
                 } else {
-                   //TODO: тут как-то можно посмотреть ошибку, пока не разобрался.
+                    //TODO: тут как-то можно посмотреть ошибку, пока не разобрался.
                     Log.d("***", "FirebaseAuth -> authCheckTest -> task: " + task.exception?.cause.toString())
                     Log.d("***", "FirebaseAuth -> authCheckTest -> task: " + task.exception?.message.toString())
                     callback(ErrorsTypes.USERNOTAUTH)
@@ -73,12 +76,12 @@ open class FirebaseAuth {
             return ErrorsTypes.EMAILNOTVIRIFIED
         }
 
-        Log.d("***", "FirebaseAuth -> checkAuth -> currentUser = "+currentUser.toString())
+        Log.d("***", "FirebaseAuth -> checkAuth -> currentUser = " + currentUser.toString())
 
 
         val task = currentUser.reload()
 
-        Log.d("***", "FirebaseAuth -> checkAuth -> task = "+task.toString())
+        Log.d("***", "FirebaseAuth -> checkAuth -> task = " + task.toString())
 
 
         return try {
@@ -101,7 +104,7 @@ open class FirebaseAuth {
 
     }
 
-    fun authByMail(email: String, password: String): ErrorsTypes {
+    fun authByMail(email: String, password: String, listener: TaskAuthFirebaseListener) {
 
         Log.d("***", "AuthRepositoryImpl -> authByMail ($email/$password)")
 
@@ -109,26 +112,18 @@ open class FirebaseAuth {
 
         if (task == null) {
             Log.d("***", "FirebaseAuth -> authByMail -> currentUser is NULL")
-            return ErrorsTypes.AUTHERROR
+            listener.onError(FirebaseExpection("AuthError!", ErrorsTypes.AUTHERROR))
+            return
         }
 
-        return try {
-            val authResult = Tasks.await(task)
-            //Log.d("***", "FirebaseAuth -> authByMail -> ExecutionException: " + authResult.toString())
-            ErrorsTypes.ALLOK
-        } catch (e: ExecutionException) {
-            Log.d("***", "FirebaseAuth -> authByMail -> ExecutionException: " + e.message.toString())
-            //TODO: как-то надо отлавливать сообщения и реагировать на них, но скорее всего пользователь не найден
-            ErrorsTypes.USERNOTAUTH
-        } catch (e: InterruptedException) {
-            Log.d("***", "FirebaseAuth -> authByMail -> InterruptedException: " + e.message.toString())
-            ErrorsTypes.INTERUPTEDEXCEPTION
-        } catch (e: TimeoutException) {
-            Log.d("***", "FirebaseAuth -> authByMail -> TimeoutException: " + e.message.toString())
-            ErrorsTypes.TIMEOUTECXEPTION
-        }
-
-
+        task.addOnCompleteListener(OnCompleteListener {
+            if (it.isSuccessful)
+                listener.onSuccess(it.result)
+            else {
+                Log.d("***", "FirebaseAuth -> authByMail -> TimeoutException: " + it.exception.toString())
+                listener.onError(it.exception)
+            }
+        })
     }
 
 

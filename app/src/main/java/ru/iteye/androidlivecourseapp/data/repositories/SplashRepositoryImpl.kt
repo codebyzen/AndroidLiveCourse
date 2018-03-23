@@ -4,11 +4,10 @@ import android.content.Context
 import android.util.Log
 import io.reactivex.Observable
 import ru.iteye.androidlivecourseapp.domain.global.repositories.SplashRepository
-import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.GooglePlayUtils
 import android.net.ConnectivityManager
 import ru.iteye.androidlivecourseapp.domain.global.models.Application
-import kotlin.system.exitProcess
 
 
 class SplashRepositoryImpl: SplashRepository {

@@ -6,7 +6,7 @@ import io.reactivex.schedulers.Schedulers
 import ru.iteye.androidlivecourseapp.data.repositories.RegRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.reg.RegInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
-import ru.iteye.androidlivecourseapp.utils.ErrorsTypes
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 
 class RegEmailPresenter: BasePresenter<RegEmailView>() {
