@@ -24,10 +24,11 @@ class AuthRepositoryImpl : AuthRepository {
 
             firebase.authByMail(email, password, object : TaskAuthFirebaseListener {
                 override fun onSuccess(result: AuthResult) {
-//                        subscriber.onNext(result)
                     subscriber.onComplete()
                 }
-
+                override fun onComplete() {
+                    subscriber.onComplete()
+                }
                 override fun onError(exception: Exception?) {
                     subscriber.onError(exception)
                 }
@@ -35,15 +36,7 @@ class AuthRepositoryImpl : AuthRepository {
         }
     }
 
-    override fun checkAuth(): ErrorsTypes {
-        Log.d("***", "AuthRepositoryImpl -> checkAuth")
-        return firebase.checkAuth()
-    }
 
-    override fun checkAuthTest(callback: (results: ErrorsTypes) -> Unit) {
-        Log.d("***", "AuthRepositoryImpl -> checkAuth")
-        firebase.authCheckTest(callback)
-    }
 
 
 }

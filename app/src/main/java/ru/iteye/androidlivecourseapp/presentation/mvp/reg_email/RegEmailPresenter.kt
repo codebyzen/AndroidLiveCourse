@@ -7,6 +7,7 @@ import ru.iteye.androidlivecourseapp.data.repositories.RegRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.reg.RegInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
+import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpection
 
 
 class RegEmailPresenter: BasePresenter<RegEmailView>() {
@@ -23,31 +24,46 @@ class RegEmailPresenter: BasePresenter<RegEmailView>() {
                     .subscribe({ isRegSuccess ->
                         Log.d("***", "RegEmailPresenter -> signIn -> thread name: " + Thread.currentThread().name)
                         Log.d("***", "RegEmailPresenter -> observerListener -> observableRegResult: " + isRegSuccess.toString())
-                        afterRegistration(isRegSuccess)
+                        afterRegistration()
+                    }, { error ->
+                        error.printStackTrace()
+                        afterRegistrationError(error)
                     })
         )
 
 
     }
 
-
-    private fun afterRegistration(isUserRegSuccess: ErrorsTypes) {
-
-        Log.d("***", "RegEmailPresenter -> afterRegistration -> "+isUserRegSuccess.toString())
-
-        when (isUserRegSuccess) {
-            ErrorsTypes.ALLOK -> onUserRegistred()
-            ErrorsTypes.AUTHERROR -> onUserRegError()
-            ErrorsTypes.USERNOTAUTH -> onUserRegError()
+    private fun afterRegistrationError(error: Throwable) {
+        Log.d("***", "RegEmailPresenter -> afterRegistrationError")
+        Log.d("***", "RegEmailPresenter -> afterRegistrationError -> error.message: " + error.message.toString())
+        if (error is FirebaseExpection) {
+            Log.d("***", "afterRegistrationError -> afterRegistrationError -> error is FirebaseExpection")
+            when (error.type) {
+                ErrorsTypes.ERROR_USER_NOT_FOUND -> onUserRegError()
+                ErrorsTypes.ERROR_EMAIL_ALREADY_IN_USE -> onUserAlreadyExist()
+            }
+        } else {
+            Log.d("***", "RegEmailPresenter -> afterRegistrationError -> error is NOT FirebaseExpection")
+            getView()?.showError(error.message!!)
         }
     }
 
-    private fun onUserRegistred() {
+    private fun onUserRegError(){
+        Log.d("***", "afterRegistrationError -> onUserRegError")
+
+    }
+
+    private fun onUserAlreadyExist(){
+        Log.d("***", "afterRegistrationError -> afterRegistration")
+        getView()?.onUserAlreadyExist()
+    }
+
+    private fun afterRegistration() {
+        Log.d("***", "afterRegistrationError -> afterRegistration")
         getView()?.onUserRegistered()
     }
 
-    private fun onUserRegError() {
-        getView()?.onFailedReg()
-    }
+
 
 }

@@ -4,5 +4,5 @@ import io.reactivex.Observable
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 interface SplashRepository {
-    fun startupCheck(): Observable<ErrorsTypes>
+    fun startupCheck(): Observable<Boolean>
 }

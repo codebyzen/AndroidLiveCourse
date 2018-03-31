@@ -7,6 +7,6 @@ interface RegEmailView: BaseView {
     fun onWrongEmail(email: EditText)
     fun onWrongPassword(password: EditText)
     fun onUserRegistered()
-    fun onFailedReg()
+    fun onUserAlreadyExist()
     fun onTermsIsNotAccepted(checkBox: CheckBox)
 }

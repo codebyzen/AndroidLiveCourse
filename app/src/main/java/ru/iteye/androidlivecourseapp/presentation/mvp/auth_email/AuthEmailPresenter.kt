@@ -1,6 +1,7 @@
 package ru.iteye.androidlivecourseapp.presentation.mvp.auth_email
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuthException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.iteye.androidlivecourseapp.data.repositories.AuthRepositoryImpl
@@ -25,7 +26,7 @@ class AuthEmailPresenter : BasePresenter<AuthEmailActivity>() {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ isAuthSuccess ->
                             Log.d("***", "AuthEmailPresenter -> signIn -> thread name: " + currentThread().name)
-                            Log.d("***", "AuthEmailPresenter -> observerListener -> observableAuthResult: " + isAuthSuccess.toString())
+                            Log.d("***", "AuthEmailPresenter -> signIn -> observableAuthResult: " + isAuthSuccess.toString())
                             onUserAuthenticated()
                         }, { error ->
                             error.printStackTrace()
@@ -37,8 +38,9 @@ class AuthEmailPresenter : BasePresenter<AuthEmailActivity>() {
     private fun afterAuthentificationError(error: Throwable) {
         if (error is FirebaseExpection) {
             when (error.type) {
-                ErrorsTypes.AUTHERROR -> onUserAuthError()
-                ErrorsTypes.USERNOTAUTH -> onUserAuthError()
+                ErrorsTypes.ERROR_WRONG_PASSWORD -> onUserWrongPassword()
+                ErrorsTypes.ERROR_USER_NOT_FOUND -> onUserNotFound()
+
             }
         } else {
             getView()?.showError(error.message!!)
@@ -50,8 +52,12 @@ class AuthEmailPresenter : BasePresenter<AuthEmailActivity>() {
         getView()?.onSuccessAuth()
     }
 
-    private fun onUserAuthError() {
-        getView()?.onFailedAuth()
+    private fun onUserWrongPassword() {
+        getView()?.onUserWrongPassword()
+    }
+
+    private fun onUserNotFound(){
+        getView()?.onUserNotFound()
     }
 
 }

@@ -3,14 +3,16 @@ package ru.iteye.androidlivecourseapp.data.database.firebase_auth
 import android.content.ContentValues
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import ru.iteye.androidlivecourseapp.data.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpection
-import java.util.concurrent.ExecutionException
-import java.util.concurrent.TimeoutException
+import com.google.firebase.auth.FirebaseAuthException
+
+
+
+
 
 
 open class FirebaseAuth {
@@ -36,73 +38,33 @@ open class FirebaseAuth {
         }
     }
 
-    //TODO: используем пока это для теста
-    fun authCheckTest(callback: (results: ErrorsTypes) -> Unit) {
-        Log.d("***", "FirebaseAuth -> authCheckTest")
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser == null) {
-            callback(ErrorsTypes.ERROR_USER_NOT_FOUND)
-        } else {
-            currentUser.reload().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    callback(ErrorsTypes.ALLOK)
-                } else {
-                    //TODO: тут как-то можно посмотреть ошибку, пока не разобрался.
-                    Log.d("***", "FirebaseAuth -> authCheckTest -> task: " + task.exception?.cause.toString())
-                    Log.d("***", "FirebaseAuth -> authCheckTest -> task: " + task.exception?.message.toString())
-                    callback(ErrorsTypes.USERNOTAUTH)
-                }
-            }
-        }
-    }
-
-
     /**
      * Проверяем авторизован ли уже пользователь и выполняем замыкание
      */
-    fun checkAuth(): ErrorsTypes {
-        Log.d("***", "FirebaseAuth -> checkAuth")
+    fun authCheck(listener: TaskAuthFirebaseListener) {
+        Log.d("***", "FirebaseAuth -> authCheck")
 
         val currentUser = FirebaseAuth.getInstance().currentUser
-
         if (currentUser == null) {
-            Log.d("***", "FirebaseAuth -> checkAuth -> currentUser is NULL")
-            return ErrorsTypes.USERISNULL
+            listener.onError(FirebaseExpection("ERROR_USER_NOT_FOUND", ErrorsTypes.ERROR_USER_NOT_FOUND))
+            return
         }
-
-
-        val emailVerified = currentUser.isEmailVerified
-        if (!emailVerified) {
-            return ErrorsTypes.EMAILNOTVIRIFIED
-        }
-
-        Log.d("***", "FirebaseAuth -> checkAuth -> currentUser = " + currentUser.toString())
-
 
         val task = currentUser.reload()
 
-        Log.d("***", "FirebaseAuth -> checkAuth -> task = " + task.toString())
-
-
-        return try {
-            val authResult = Tasks.await(task)
-            this.fUser = fAuth?.currentUser
-            Log.d("***", "FirebaseAuth -> checkAuth -> fUser: " + this.fUser.toString())
-            ErrorsTypes.ALLOK
-        } catch (e: ExecutionException) {
-            Log.d("***", "FirebaseAuth -> checkAuth -> ExecutionException: " + e.message.toString())
-            Log.d("***", "FirebaseAuth -> checkAuth -> ExecutionException: " + e.localizedMessage.toString())
-            ErrorsTypes.EXECUTIONEXCEPTION
-        } catch (e: InterruptedException) {
-            Log.d("***", "FirebaseAuth -> checkAuth -> InterruptedException: " + e.message.toString())
-            ErrorsTypes.INTERUPTEDEXCEPTION
-        } catch (e: TimeoutException) {
-            Log.d("***", "FirebaseAuth -> checkAuth -> TimeoutException: " + e.message.toString())
-            ErrorsTypes.TIMEOUTECXEPTION
-        }
-
-
+        task.addOnCompleteListener(OnCompleteListener {
+            if (!it.isSuccessful) {
+                Log.d("***", "FirebaseAuth -> authCheckTest -> Exception: " + task.exception.toString())
+                listener.onError(it.exception)
+            } else {
+                Log.d("***", "FirebaseAuth -> authCheck -> onComplete")
+                listener.onComplete()
+            }
+        })
     }
+
+
+
 
     fun authByMail(email: String, password: String, listener: TaskAuthFirebaseListener) {
 
@@ -110,9 +72,10 @@ open class FirebaseAuth {
 
         val task = fAuth?.signInWithEmailAndPassword(email, password)
 
+
         if (task == null) {
             Log.d("***", "FirebaseAuth -> authByMail -> currentUser is NULL")
-            listener.onError(FirebaseExpection("AuthError!", ErrorsTypes.AUTHERROR))
+            listener.onError(FirebaseExpection("USER_IS_NULL", ErrorsTypes.USER_IS_NULL))
             return
         }
 
@@ -120,38 +83,41 @@ open class FirebaseAuth {
             if (it.isSuccessful)
                 listener.onSuccess(it.result)
             else {
-                Log.d("***", "FirebaseAuth -> authByMail -> TimeoutException: " + it.exception.toString())
-                listener.onError(it.exception)
+                val errorCode = (it?.exception as FirebaseAuthException).errorCode
+                Log.d("***", "FirebaseAuth -> authByMail -> errorCode: $errorCode")
+                Log.d("***", "FirebaseAuth -> authByMail -> Exception: " + it.exception.toString())
+                Log.d("***", "FirebaseAuth -> authByMail -> ErrorsTypes.valueOf: " + ErrorsTypes.valueOf(errorCode).toString())
+                listener.onError(FirebaseExpection(errorCode, ErrorsTypes.valueOf(errorCode)))
             }
+        }).addOnFailureListener({
+            Log.d("***", "FirebaseAuth -> authByMail -> Exception: " + it.message.toString())
         })
     }
 
 
-    fun regByMail(email: String, password: String): ErrorsTypes {
+    fun regByMail(email: String, password: String, listener: TaskAuthFirebaseListener) {
         Log.d("***", "AuthRepositoryImpl -> regByMail ($email/$password)")
 
         val task = fAuth?.createUserWithEmailAndPassword(email, password)
 
         if (task == null) {
-            Log.d("***", "FirebaseAuth -> regByMail -> currentUser is NULL")
-            return ErrorsTypes.AUTHERROR
+            listener.onError(FirebaseExpection("USER_IS_NULL", ErrorsTypes.USER_IS_NULL))
+            return
         }
 
-        return try {
-            val authResult = Tasks.await(task)
-            //Log.d("***", "FirebaseAuth -> regByMail -> ExecutionException: " + authResult.toString())
-            sendVerifyEmail()
-            ErrorsTypes.ALLOK
-        } catch (e: ExecutionException) {
-            Log.d("***", "FirebaseAuth -> regByMail -> ExecutionException: " + e.message.toString())
-            //TODO: как-то надо отлавливать сообщения и реагировать на них, но скорее всего пользователь не найден
-            ErrorsTypes.USERNOTAUTH
-        } catch (e: InterruptedException) {
-            Log.d("***", "FirebaseAuth -> regByMail -> InterruptedException: " + e.message.toString())
-            ErrorsTypes.INTERUPTEDEXCEPTION
-        } catch (e: TimeoutException) {
-            Log.d("***", "FirebaseAuth -> regByMail -> TimeoutException: " + e.message.toString())
-            ErrorsTypes.TIMEOUTECXEPTION
-        }
+        task.addOnCompleteListener(OnCompleteListener {
+            if (it.isSuccessful) {
+                listener.onSuccess(it.result)
+            } else {
+                val errorCode = (it?.exception as FirebaseAuthException).errorCode
+                Log.d("***", "FirebaseAuth -> regByMail -> errorCode: $errorCode")
+                Log.d("***", "FirebaseAuth -> regByMail -> Exception: " + it.exception.toString())
+                Log.d("***", "FirebaseAuth -> regByMail -> ErrorsTypes.valueOf: " + ErrorsTypes.valueOf(errorCode).toString())
+                listener.onError(FirebaseExpection(errorCode, ErrorsTypes.valueOf(errorCode)))
+            }
+        }).addOnFailureListener({
+            Log.d("***", "FirebaseAuth -> regByMail -> Exception: " + it.message.toString())
+        })
+
     }
 }

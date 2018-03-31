@@ -58,7 +58,10 @@ dependencies {
     compile "com.android.support:multidex:${libraries.multidex}"
     compile "com.vk:androidsdk:${libraries.androidsdk}"
 
+    compile "com.google.code.gson:gson:${libraries.gson}"
+
     compile "com.android.support:design:${libraries.design}"
+
 }
 
 

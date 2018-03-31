@@ -26,7 +26,7 @@ class SplashActivity : BaseActivity(), SplashView {
     }
 
     // показываем сообщение о необходимости обновиться
-    override fun googlePlayServiceError(){
+    override fun googlePlayServiceOutdate(){
         showError(getString(R.string.error_google_play_version))
     }
 
@@ -39,6 +39,10 @@ class SplashActivity : BaseActivity(), SplashView {
     override fun startFriendsListActivity() {
         val intent = Intent(this, FriendsListActivity::class.java).apply {}
         startActivity(intent)
+    }
+
+    override fun onNoInternet(){
+        showError(getString(R.string.error_no_internet))
     }
 
 

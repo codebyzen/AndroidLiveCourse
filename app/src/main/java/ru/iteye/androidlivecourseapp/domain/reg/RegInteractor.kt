@@ -7,7 +7,7 @@ import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 class RegInteractor(private var repository : RegRepository) {
 
-    fun regByMail(email : String, password : String): Observable<ErrorsTypes> {
+    fun regByMail(email : String, password : String): Observable<Boolean> {
         Log.d("***", "RegInteractor -> regByMail")
         return repository.registrationByEmail(email, password)
     }

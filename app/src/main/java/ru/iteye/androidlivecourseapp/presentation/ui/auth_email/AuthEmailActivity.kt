@@ -52,7 +52,7 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         }
 
         if (!ValidateUtils.isValidPassword(password.toString())) {
-            onWrongPassword(password)
+            onWeakPassword(password)
             return false
         }
 
@@ -63,8 +63,12 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         email.error = getString(R.string.wrong_email)
     }
 
-    override fun onWrongPassword(password: EditText) {
+    override fun onWeakPassword(password: EditText) {
         password.error = getString(R.string.wrong_password)
+    }
+
+    override fun onUserWrongPassword() {
+        showError(getString(R.string.failed_auth))
     }
 
     override fun onSuccessAuth() {
@@ -72,12 +76,8 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         startActivity(intent)
     }
 
-    override fun onFailedAuth() {
+    override fun onUserNotFound(){
         showError(getString(R.string.failed_auth))
-    }
-
-    override fun onFailedFirebaseAuth(){
-        showError(getString(R.string.failed_firebase))
     }
 
 }

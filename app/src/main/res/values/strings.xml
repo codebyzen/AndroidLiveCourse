@@ -6,6 +6,7 @@
 
     <!-- Error messages -->
     <string name="error_google_play_version">To run this application You need to update GooglePlay Services!</string>
+    <string name="error_no_internet">To use this application you need to turn on internet connection!</string>
 
     <!-- auth_choose -->
     <string name="btn_text_choose_login_vk">Sign up VK</string>
@@ -20,7 +21,7 @@
     <string name="checkbox_registration_confirm_rights">I agree with the terms of use</string>
     <string name="terms_is_not_accepted">Required accept terms and rules!</string>
     <string name="user_registered">New user registered!</string>
-    <string name="failed_reg">User is already exist or try later!</string>
+    <string name="failed_reg">User with this credentials is already exist!</string>
 
 
     <!-- auth_email -->

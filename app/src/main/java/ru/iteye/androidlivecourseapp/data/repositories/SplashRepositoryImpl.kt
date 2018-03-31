@@ -7,11 +7,15 @@ import ru.iteye.androidlivecourseapp.domain.global.repositories.SplashRepository
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.GooglePlayUtils
 import android.net.ConnectivityManager
+import com.google.firebase.auth.AuthResult
+import ru.iteye.androidlivecourseapp.data.database.firebase_auth.FirebaseAuth
+import ru.iteye.androidlivecourseapp.data.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.models.Application
 
 
 class SplashRepositoryImpl: SplashRepository {
 
+    private val firebase = FirebaseAuth()
 
     private fun checkForGooglePlayServiceVersion(): Boolean {
         Log.d("***", "SplashRepositoryImpl -> checkForGooglePlayServiceVersion")
@@ -30,8 +34,10 @@ class SplashRepositoryImpl: SplashRepository {
             return true
         }
 
-        Log.d("***", "SplashRepositoryImpl -> checkForGooglePlayServiceVersion : $googlePlayServiceCurrentVersion >= $googlePlayServiceNewestVersion")
-        return googlePlayServiceCurrentVersion >= googlePlayServiceNewestVersion
+        val gpsCurrent = googlePlayServiceCurrentVersion.toInt()
+        val gpsActual = googlePlayServiceNewestVersion.toInt()
+
+        return gpsCurrent >= gpsActual
     }
 
     private fun isConnected(): Boolean {
@@ -41,50 +47,44 @@ class SplashRepositoryImpl: SplashRepository {
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting
     }
 
-    override fun startupCheck(): Observable<ErrorsTypes> {
-        return Observable.create<ErrorsTypes> { subscriber ->
-            Log.d("***", "SplashRepositoryImpl -> startupCheck -> Observable.create")
+    override fun startupCheck(): Observable<Boolean> {
+        return Observable.create<Boolean> { subscriber ->
             Log.d("***", "SplashRepositoryImpl -> startupCheck -> thread name: " + Thread.currentThread().name)
-
             try {
-
                 if (!checkForGooglePlayServiceVersion()) {
                     Log.d("***", "SplashRepositoryImpl -> startupCheckList -> GooglePlayServiceVersion need up to date!")
-                    subscriber.onNext(ErrorsTypes.GOOGLEPLAYERROR)
-                    subscriber.onComplete()
+                    subscriber.onError(Exception(ErrorsTypes.GOOGLEPLAYSERVICE_OUTDATE.toString()))
                 } else {
-                    // TODO: ждем интернета, но видимо лучше как-то по другому это реализовать
                     if (!isConnected()) {
-                        //TODO: тут как-то можно вывести информацию для пользователя о том, что необходимо включить интернет
+                        Log.d("***", "SplashRepositoryImpl -> startupCheckList -> No Internet Connection!")
+                        subscriber.onError(Exception(ErrorsTypes.NO_INTERNET_CONNECTION.toString()))
+                    } else {
+                        Log.d("***", "SplashRepositoryImpl -> startupCheckList -> compleate")
+                        firebase.authCheck(object : TaskAuthFirebaseListener {
+                            override fun onSuccess(result: AuthResult) {
+                                Log.d("***", "SplashRepositoryImpl -> startupCheck:override -> onSuccess")
+                                subscriber.onComplete()
+                            }
+                            override fun onComplete() {
+                                Log.d("***", "SplashRepositoryImpl -> startupCheck:override -> onComplete")
+                                //TODO: почему-то отсюда не возвращает....
+                                subscriber.onComplete()
+                            }
+                            override fun onError(exception: Exception?) {
+                                Log.d("***", "SplashRepositoryImpl -> startupCheck:override -> onError")
+                                subscriber.onError(exception)
+                            }
+                        })
                     }
-                    while(!isConnected()) {
-                        Thread.sleep(1_000)
-                        Log.d("***", "SplashRepositoryImpl -> startupCheckList -> Wait for internet")
-                    }
-
-                    fun test(result: ErrorsTypes){
-                        Log.d("***", "SplashRepositoryImpl -> startupCheck -> test -> result: " + result.toString())
-                        subscriber.onNext(result)
-                        subscriber.onComplete()
-                    }
-
-                    val authRepositoryImpl = AuthRepositoryImpl()
-                    //val authResult = authRepositoryImpl.checkAuth()
-
-                    authRepositoryImpl.checkAuthTest(::test)
-
-
                 }
-
-
             } catch (e: Exception) {
                 Log.d("***", "SplashRepositoryImpl -> startupCheckList -> Exception: " + e.message.toString())
-                subscriber.onNext(ErrorsTypes.EXECUTIONEXCEPTION)
                 subscriber.onError(e)
             }
 
 
         }
     }
+
 
 }

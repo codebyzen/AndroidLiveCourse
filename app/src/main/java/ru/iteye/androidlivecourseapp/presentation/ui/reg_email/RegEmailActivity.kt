@@ -84,7 +84,7 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
         startActivity(intent)
     }
 
-    override fun onFailedReg() {
+    override fun onUserAlreadyExist() {
         showError(getString(R.string.failed_reg))
     }
 
