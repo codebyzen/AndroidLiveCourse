@@ -50,17 +50,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    compile "com.squareup.retrofit2:retrofit:${libraries.squareupRetrofit2}"
-    compile "io.reactivex.rxjava2:rxjava:${libraries.rxjava2}"
-    compile "io.reactivex.rxjava2:rxandroid:${libraries.rxjava2}"
-    compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${libraries.rxjava2Adapter}"
-    compile "com.squareup.picasso:picasso:${libraries.picasso}"
-    compile "com.android.support:multidex:${libraries.multidex}"
-    compile "com.vk:androidsdk:${libraries.androidsdk}"
+    implementation "com.squareup.retrofit2:retrofit:${libraries.squareupRetrofit2}"
+    implementation "io.reactivex.rxjava2:rxjava:${libraries.rxjava2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${libraries.rxjava2}"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${libraries.rxjava2Adapter}"
+    implementation "com.squareup.picasso:picasso:${libraries.picasso}"
+    implementation "com.android.support:multidex:${libraries.multidex}"
+    implementation "com.vk:androidsdk:${libraries.androidsdk}"
 
-    compile "com.google.code.gson:gson:${libraries.gson}"
+    implementation "com.google.code.gson:gson:${libraries.gson}"
 
-    compile "com.android.support:design:${libraries.design}"
+    implementation "com.android.support:design:${libraries.design}"
 
 }
 

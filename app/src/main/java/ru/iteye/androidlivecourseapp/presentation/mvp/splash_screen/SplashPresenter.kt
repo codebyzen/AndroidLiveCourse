@@ -7,7 +7,7 @@ import ru.iteye.androidlivecourseapp.data.repositories.SplashRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.splash.SplashInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
-import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpection
+import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpectionUtil
 
 
 class SplashPresenter : BasePresenter<SplashView>() {
@@ -33,21 +33,19 @@ class SplashPresenter : BasePresenter<SplashView>() {
 
     private fun afterStartUpCheckError(error: Throwable) {
         Log.d("***", "SplashPresenter -> afterStartUpCheckError -> results = " + error.toString())
-        if (error is FirebaseExpection) {
-            Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is FirebaseExpection")
+        if (error is FirebaseExpectionUtil) {
+            Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is FirebaseExpectionUtil")
             when (error.type) {
                 ErrorsTypes.ERROR_USER_NOT_FOUND -> onUserAuthError()
             }
         } else {
-            Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is NOT FirebaseExpection")
+            Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is NOT FirebaseExpectionUtil")
             when (error) {
                 ErrorsTypes.NO_INTERNET_CONNECTION -> onNoInternet()
                 ErrorsTypes.GOOGLEPLAYSERVICE_OUTDATE -> googlePlayServiceOutdate()
                 ErrorsTypes.ALLOK -> getView()?.startFriendsListActivity()
                 else -> {
                     getView()?.showError(error.message!!)
-
-                    //getView()?.startAuthChooseActivity()
                 }
             }
         }

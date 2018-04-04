@@ -7,7 +7,7 @@ import ru.iteye.androidlivecourseapp.data.repositories.RegRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.reg.RegInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
-import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpection
+import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpectionUtil
 
 
 class RegEmailPresenter: BasePresenter<RegEmailView>() {
@@ -37,14 +37,14 @@ class RegEmailPresenter: BasePresenter<RegEmailView>() {
     private fun afterRegistrationError(error: Throwable) {
         Log.d("***", "RegEmailPresenter -> afterRegistrationError")
         Log.d("***", "RegEmailPresenter -> afterRegistrationError -> error.message: " + error.message.toString())
-        if (error is FirebaseExpection) {
-            Log.d("***", "afterRegistrationError -> afterRegistrationError -> error is FirebaseExpection")
+        if (error is FirebaseExpectionUtil) {
+            Log.d("***", "afterRegistrationError -> afterRegistrationError -> error is FirebaseExpectionUtil")
             when (error.type) {
                 ErrorsTypes.ERROR_USER_NOT_FOUND -> onUserRegError()
                 ErrorsTypes.ERROR_EMAIL_ALREADY_IN_USE -> onUserAlreadyExist()
             }
         } else {
-            Log.d("***", "RegEmailPresenter -> afterRegistrationError -> error is NOT FirebaseExpection")
+            Log.d("***", "RegEmailPresenter -> afterRegistrationError -> error is NOT FirebaseExpectionUtil")
             getView()?.showError(error.message!!)
         }
     }

@@ -26,8 +26,6 @@ enum class ErrorsTypes(val errorType: Int) {
 
     ALLOK(31337),
 
-
-
 }
 
 /*

@@ -24,9 +24,11 @@ class AuthRepositoryImpl : AuthRepository {
 
             firebase.authByMail(email, password, object : TaskAuthFirebaseListener {
                 override fun onSuccess(result: AuthResult) {
+                    subscriber.onNext(true)
                     subscriber.onComplete()
                 }
                 override fun onComplete() {
+                    subscriber.onNext(true)
                     subscriber.onComplete()
                 }
                 override fun onError(exception: Exception?) {

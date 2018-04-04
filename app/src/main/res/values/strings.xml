@@ -8,6 +8,23 @@
     <string name="error_google_play_version">To run this application You need to update GooglePlay Services!</string>
     <string name="error_no_internet">To use this application you need to turn on internet connection!</string>
 
+    <string name="ERROR_INVALID_CUSTOM_TOKEN">The custom token format is incorrect. Please check the documentation.</string>
+    <string name="ERROR_CUSTOM_TOKEN_MISMATCH">The custom token corresponds to a different audience.</string>
+    <string name="ERROR_INVALID_CREDENTIAL">The supplied auth credential is malformed or has expired.</string>
+    <string name="ERROR_INVALID_EMAIL">The email address is badly formatted.</string>
+    <string name="ERROR_WRONG_PASSWORD">The password is invalid or the user does not have a password.</string>
+    <string name="ERROR_USER_MISMATCH">The supplied credentials do not correspond to the previously signed in user.</string>
+    <string name="ERROR_REQUIRES_RECENT_LOGIN">This operation is sensitive and requires recent authentication. Log in again before retrying this request.</string>
+    <string name="ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL">An account already exists with the same email address but different sign-in credentials. Sign in using a provider associated with this email address.</string>
+    <string name="ERROR_EMAIL_ALREADY_IN_USE">The email address is already in use by another account.</string>
+    <string name="ERROR_CREDENTIAL_ALREADY_IN_USE">This credential is already associated with a different user account.</string>
+    <string name="ERROR_USER_DISABLED">The user account has been disabled by an administrator.</string>
+    <string name="ERROR_USER_TOKEN_EXPIRED">The user\'s credential is no longer valid. The user must sign in again.</string>
+    <string name="ERROR_USER_NOT_FOUND">There is no user record corresponding to this identifier. The user may have been deleted.</string>
+    <string name="ERROR_INVALID_USER_TOKEN">The user\'s credential is no longer valid. The user must sign in again.</string>
+    <string name="ERROR_OPERATION_NOT_ALLOWED">This operation is not allowed. You must enable this service in the console.</string>
+    <string name="ERROR_WEAK_PASSWORD">The given password is invalid.</string>
+
     <!-- auth_choose -->
     <string name="btn_text_choose_login_vk">Sign up VK</string>
     <string name="btn_text_choose_login_fb">Sign up FB</string>
@@ -21,15 +38,11 @@
     <string name="checkbox_registration_confirm_rights">I agree with the terms of use</string>
     <string name="terms_is_not_accepted">Required accept terms and rules!</string>
     <string name="user_registered">New user registered!</string>
-    <string name="failed_reg">User with this credentials is already exist!</string>
-
 
     <!-- auth_email -->
     <string name="header_login_email">Sign in with Email</string>
     <string name="btn_text_login_email">Login</string>
     <string name="btn_text_login_email_send_password">I forgot password</string>
-    <string name="failed_auth">User is absent or login/password wrong!</string>
-
 
     <!-- auth/reg form -->
     <string name="text_login_email">Email</string>
@@ -39,10 +52,8 @@
     <string name="wrong_email">Required correct email!</string>
     <string name="wrong_password">Must be 6 symbols or more!</string>
 
-
     <!-- splash_screen -->
     <string name="text_splash_screen_loading">Loading…</string>
-
 
     <!-- some other not unique strings -->
     <string name="btn_text_ok">OK</string>

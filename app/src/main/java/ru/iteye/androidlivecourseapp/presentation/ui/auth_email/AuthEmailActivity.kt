@@ -11,6 +11,7 @@ import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailPresen
 import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailView
 import ru.iteye.androidlivecourseapp.utils.ValidateUtils
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 
 class AuthEmailActivity : BaseActivity(), AuthEmailView {
@@ -60,15 +61,11 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
     }
 
     override fun onWrongEmail(email: EditText) {
-        email.error = getString(R.string.wrong_email)
+        email.error = getString(R.string.ERROR_INVALID_EMAIL)
     }
 
     override fun onWeakPassword(password: EditText) {
-        password.error = getString(R.string.wrong_password)
-    }
-
-    override fun onUserWrongPassword() {
-        showError(getString(R.string.failed_auth))
+        password.error = getString(R.string.ERROR_WEAK_PASSWORD)
     }
 
     override fun onSuccessAuth() {
@@ -76,9 +73,12 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         startActivity(intent)
     }
 
-    override fun onUserNotFound(){
-        showError(getString(R.string.failed_auth))
+    override fun showFirebaseErrorMessage(errorType: ErrorsTypes){
+        val res = resources
+        val localized = res.getString(res.getIdentifier(errorType.name, "string", packageName))
+        showError(localized)
     }
+
 
 }
 

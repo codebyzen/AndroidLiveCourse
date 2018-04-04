@@ -59,15 +59,17 @@ class SplashRepositoryImpl: SplashRepository {
                         Log.d("***", "SplashRepositoryImpl -> startupCheckList -> No Internet Connection!")
                         subscriber.onError(Exception(ErrorsTypes.NO_INTERNET_CONNECTION.toString()))
                     } else {
-                        Log.d("***", "SplashRepositoryImpl -> startupCheckList -> compleate")
+                        Log.d("***", "SplashRepositoryImpl -> startupCheckList -> complete")
+
                         firebase.authCheck(object : TaskAuthFirebaseListener {
                             override fun onSuccess(result: AuthResult) {
                                 Log.d("***", "SplashRepositoryImpl -> startupCheck:override -> onSuccess")
+                                subscriber.onNext(true)
                                 subscriber.onComplete()
                             }
                             override fun onComplete() {
                                 Log.d("***", "SplashRepositoryImpl -> startupCheck:override -> onComplete")
-                                //TODO: почему-то отсюда не возвращает....
+                                subscriber.onNext(true)
                                 subscriber.onComplete()
                             }
                             override fun onError(exception: Exception?) {
