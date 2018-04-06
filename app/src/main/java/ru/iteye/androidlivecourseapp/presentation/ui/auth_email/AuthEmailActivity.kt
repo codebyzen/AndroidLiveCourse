@@ -76,7 +76,7 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
     override fun showFirebaseErrorMessage(errorType: ErrorsTypes){
         val res = resources
         val localized = res.getString(res.getIdentifier(errorType.name, "string", packageName))
-        showError(localized)
+        showError(localized, {})
     }
 
 

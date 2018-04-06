@@ -85,7 +85,7 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
     }
 
     override fun onUserAlreadyExist() {
-        showError(getString(R.string.ERROR_EMAIL_ALREADY_IN_USE))
+        showError(getString(R.string.ERROR_EMAIL_ALREADY_IN_USE), {})
     }
 
 

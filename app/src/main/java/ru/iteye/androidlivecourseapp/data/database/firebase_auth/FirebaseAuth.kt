@@ -3,9 +3,6 @@ package ru.iteye.androidlivecourseapp.data.database.firebase_auth
 import android.content.ContentValues
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
 import ru.iteye.androidlivecourseapp.data.repositories.listeners.TaskAuthFirebaseListener
@@ -13,9 +10,8 @@ import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpectionUtil
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.gson.Gson
-import com.google.gson.JsonParser
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.internal.api.FirebaseNoSignedInUserException
+import ru.iteye.androidlivecourseapp.utils.gson_classes.DeserializationFirebaseInternalError
 
 
 open class FirebaseAuth {
@@ -59,37 +55,33 @@ open class FirebaseAuth {
             if (!it.isSuccessful) {
                 try {
                     if(task.exception != null) {
-                        throw task.exception!!
+                        throw it.exception!!
                     }
                     else {
                         Log.d("***", "signUp: task is null")
+                        listener.onError(FirebaseExpectionUtil("USER_IS_NULL", ErrorsTypes.USER_IS_NULL))
                     }
                 }
-                catch(e: FirebaseAuthInvalidCredentialsException) {
-                    Log.d("***", "FirebaseAuthInvalidCredentialsException: ${e.errorCode}")
-                }
+
                 catch(e: FirebaseAuthInvalidUserException) {
                     Log.d("***", "FirebaseAuthInvalidUserException: ${e.errorCode}")
+                    listener.onError(FirebaseExpectionUtil(e.errorCode.toString(), ErrorsTypes.valueOf(e.errorCode.toString())))
                 }
                 catch(e: Exception) {
-                    // ловит только это....
-                    // возвращает вот что
-                    //                    An internal error has occurred. [ {
-                    //                        "error":{
-                    //                        "code": 400,
-                    //                        "message": "USER_DISABLED",
-                    //                        "errors": [
-                    //                        {
-                    //                            "message": "USER_DISABLED",
-                    //                            "domain": "global",
-                    //                            "reason": "invalid"
-                    //                        }
-                    //                        ]
-                    //                    }
-                    //                    } ]
-                    Log.d("***", "signUp: simple Exception")
+
+                    val errorMessage = e.message.toString()
+                    val jsonToNormalStr = errorMessage.substring(errorMessage.indexOf("{"),errorMessage.lastIndexOf("}") + 1)
+                    val mMineUserEntity: DeserializationFirebaseInternalError.Response = gson.fromJson(jsonToNormalStr, DeserializationFirebaseInternalError.Response::class.java)
+                    val errorCode = mMineUserEntity.error?.message.toString()
+
+                    listener.onError(FirebaseExpectionUtil(errorCode, ErrorsTypes.valueOf(errorCode)))
+                    Log.d("***", "simple Exception: " + errorCode)
                 }
             } else {
+                val currentUserReloaded: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+                if (currentUserReloaded?.isEmailVerified == false) {
+                    currentUserReloaded.sendEmailVerification()
+                }
                 Log.d("***", "FirebaseAuth -> authCheck -> onComplete")
                 listener.onComplete()
             }

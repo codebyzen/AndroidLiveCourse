@@ -41,11 +41,15 @@ open class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    override fun showError(message: String) {
+    override fun showError(message: String, lambda: () -> Unit?) {
         Log.d("***", "BaseActivity -> showError")
         AlertDialog.Builder(this)
                 .setMessage(message)
-                .setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
+                .setPositiveButton("Ok", { dialog, ok ->
+                    lambda()
+                    dialog.dismiss()
+                })
+                //.setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
                 .show()
     }
 

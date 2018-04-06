@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity(), SplashView {
 
     // показываем сообщение о необходимости обновиться
     override fun googlePlayServiceOutdate(){
-        showError(getString(R.string.error_google_play_version))
+        showError(getString(R.string.error_google_play_version), {})
     }
 
     // покажем активность с вариантами аутентификации
@@ -36,13 +36,21 @@ class SplashActivity : BaseActivity(), SplashView {
         startActivity(intent)
     }
 
+    override fun onUserDisabled() {
+        showError(getString(R.string.ERROR_USER_DISABLED), {
+            val intent = Intent(this, AuthChooseActivity::class.java).apply {}
+            startActivity(intent)
+        })
+
+    }
+
     override fun startFriendsListActivity() {
         val intent = Intent(this, FriendsListActivity::class.java).apply {}
         startActivity(intent)
     }
 
     override fun onNoInternet(){
-        showError(getString(R.string.error_no_internet))
+        showError(getString(R.string.error_no_internet), {})
     }
 
 

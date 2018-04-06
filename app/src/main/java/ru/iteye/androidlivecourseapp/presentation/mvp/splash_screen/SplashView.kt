@@ -6,5 +6,6 @@ interface SplashView: BaseView {
     fun startAuthChooseActivity()
     fun startFriendsListActivity()
     fun googlePlayServiceOutdate()
+    fun onUserDisabled()
     fun onNoInternet()
 }

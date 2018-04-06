@@ -37,6 +37,9 @@ class SplashPresenter : BasePresenter<SplashView>() {
             Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is FirebaseExpectionUtil")
             when (error.type) {
                 ErrorsTypes.ERROR_USER_NOT_FOUND -> onUserAuthError()
+                ErrorsTypes.USER_DISABLED -> onUserDisabled()
+                ErrorsTypes.ERROR_USER_DISABLED -> onUserDisabled()
+                ErrorsTypes.USER_IS_NULL-> onUserAuthError()
             }
         } else {
             Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is NOT FirebaseExpectionUtil")
@@ -45,7 +48,7 @@ class SplashPresenter : BasePresenter<SplashView>() {
                 ErrorsTypes.GOOGLEPLAYSERVICE_OUTDATE -> googlePlayServiceOutdate()
                 ErrorsTypes.ALLOK -> getView()?.startFriendsListActivity()
                 else -> {
-                    getView()?.showError(error.message!!)
+                    getView()?.showError(error.message!!, {})
                 }
             }
         }
@@ -62,6 +65,11 @@ class SplashPresenter : BasePresenter<SplashView>() {
     private fun onAllChecksPassed() {
         Log.d("***", "SplashPresenter -> onAllChecksPassed")
         getView()?.startFriendsListActivity()
+    }
+
+    private fun onUserDisabled() {
+        Log.d("***", "SplashPresenter -> onUserDisabled")
+        getView()?.onUserDisabled()
     }
 
     private fun onUserAuthError() {

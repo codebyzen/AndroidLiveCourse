@@ -38,7 +38,7 @@ class AuthEmailPresenter : BasePresenter<AuthEmailActivity>() {
         if (error is FirebaseExpectionUtil) {
             onFirebaseAuthError(ErrorsTypes.valueOf(error.type.name))
         } else {
-            getView()?.showError(error.message!!)
+            getView()?.showError(error.message!!, {})
         }
     }
 

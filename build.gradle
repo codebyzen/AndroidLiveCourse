@@ -39,7 +39,7 @@ ext {
     ]
 
     libraries = [
-            firebase                    : "12.0.0",
+            firebase                    : "12.0.1",
             squareupRetrofit2           : "2.3.0",
             rxjava2                     : "2.0.1",
             rxjava2Adapter              : "1.0.0",

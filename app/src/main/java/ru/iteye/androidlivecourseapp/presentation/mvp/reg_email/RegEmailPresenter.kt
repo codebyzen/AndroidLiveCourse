@@ -45,7 +45,7 @@ class RegEmailPresenter: BasePresenter<RegEmailView>() {
             }
         } else {
             Log.d("***", "RegEmailPresenter -> afterRegistrationError -> error is NOT FirebaseExpectionUtil")
-            getView()?.showError(error.message!!)
+            getView()?.showError(error.message!!, {})
         }
     }
 
