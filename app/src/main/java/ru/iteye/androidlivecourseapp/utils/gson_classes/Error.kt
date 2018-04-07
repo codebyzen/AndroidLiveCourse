@@ -1,6 +1,6 @@
 package ru.iteye.androidlivecourseapp.utils.gson_classes
 
-class DeserializationFirebaseInternalError {
+class FirebaseInternalError {
 
 	data class Response(
 		val error: Error? = null

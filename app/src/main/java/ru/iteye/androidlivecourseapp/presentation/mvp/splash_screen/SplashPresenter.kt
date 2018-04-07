@@ -3,7 +3,7 @@ package ru.iteye.androidlivecourseapp.presentation.mvp.splash_screen
 import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.iteye.androidlivecourseapp.data.repositories.SplashRepositoryImpl
+import ru.iteye.androidlivecourseapp.repositories.SplashRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.splash.SplashInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes

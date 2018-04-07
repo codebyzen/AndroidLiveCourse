@@ -3,7 +3,7 @@ package ru.iteye.androidlivecourseapp.presentation.mvp.auth_email
 import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.iteye.androidlivecourseapp.data.repositories.AuthRepositoryImpl
+import ru.iteye.androidlivecourseapp.repositories.AuthRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.auth.AuthInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity

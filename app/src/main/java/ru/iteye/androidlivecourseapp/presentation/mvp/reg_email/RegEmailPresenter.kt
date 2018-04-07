@@ -3,7 +3,7 @@ package ru.iteye.androidlivecourseapp.presentation.mvp.reg_email
 import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.iteye.androidlivecourseapp.data.repositories.RegRepositoryImpl
+import ru.iteye.androidlivecourseapp.repositories.RegRepositoryImpl
 import ru.iteye.androidlivecourseapp.domain.reg.RegInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes

@@ -1,4 +1,4 @@
-package ru.iteye.androidlivecourseapp.data.repositories
+package ru.iteye.androidlivecourseapp.repositories
 
 import android.content.Context
 import android.util.Log
@@ -9,7 +9,7 @@ import ru.iteye.androidlivecourseapp.utils.GooglePlayUtils
 import android.net.ConnectivityManager
 import com.google.firebase.auth.AuthResult
 import ru.iteye.androidlivecourseapp.data.database.firebase_auth.FirebaseAuth
-import ru.iteye.androidlivecourseapp.data.repositories.listeners.TaskAuthFirebaseListener
+import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.models.Application
 
 

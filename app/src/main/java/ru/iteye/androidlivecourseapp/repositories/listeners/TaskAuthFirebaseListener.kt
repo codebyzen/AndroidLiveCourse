@@ -1,4 +1,4 @@
-package ru.iteye.androidlivecourseapp.data.repositories.listeners
+package ru.iteye.androidlivecourseapp.repositories.listeners
 
 import com.google.firebase.auth.AuthResult
 

@@ -3,15 +3,16 @@ package ru.iteye.androidlivecourseapp.data.database.firebase_auth
 import android.content.ContentValues
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
-import ru.iteye.androidlivecourseapp.data.repositories.listeners.TaskAuthFirebaseListener
+import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.errors.FirebaseExpectionUtil
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.gson.Gson
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import ru.iteye.androidlivecourseapp.utils.gson_classes.DeserializationFirebaseInternalError
+import ru.iteye.androidlivecourseapp.utils.gson_classes.FirebaseInternalError
 
 
 open class FirebaseAuth {
@@ -51,33 +52,12 @@ open class FirebaseAuth {
 
         val task = currentUser.reload()
 
-        task.addOnCompleteListener(OnCompleteListener {
-            if (!it.isSuccessful) {
-                try {
-                    if(task.exception != null) {
-                        throw it.exception!!
-                    }
-                    else {
-                        Log.d("***", "signUp: task is null")
-                        listener.onError(FirebaseExpectionUtil("USER_IS_NULL", ErrorsTypes.USER_IS_NULL))
-                    }
-                }
+        task.addOnFailureListener {
+            handleAuthException(it, listener)
+        }
 
-                catch(e: FirebaseAuthInvalidUserException) {
-                    Log.d("***", "FirebaseAuthInvalidUserException: ${e.errorCode}")
-                    listener.onError(FirebaseExpectionUtil(e.errorCode.toString(), ErrorsTypes.valueOf(e.errorCode.toString())))
-                }
-                catch(e: Exception) {
-
-                    val errorMessage = e.message.toString()
-                    val jsonToNormalStr = errorMessage.substring(errorMessage.indexOf("{"),errorMessage.lastIndexOf("}") + 1)
-                    val mMineUserEntity: DeserializationFirebaseInternalError.Response = gson.fromJson(jsonToNormalStr, DeserializationFirebaseInternalError.Response::class.java)
-                    val errorCode = mMineUserEntity.error?.message.toString()
-
-                    listener.onError(FirebaseExpectionUtil(errorCode, ErrorsTypes.valueOf(errorCode)))
-                    Log.d("***", "simple Exception: " + errorCode)
-                }
-            } else {
+        task.addOnCompleteListener({
+            if(it.isSuccessful) {
                 val currentUserReloaded: FirebaseUser? = FirebaseAuth.getInstance().currentUser
                 if (currentUserReloaded?.isEmailVerified == false) {
                     currentUserReloaded.sendEmailVerification()
@@ -88,7 +68,22 @@ open class FirebaseAuth {
         })
     }
 
+    private fun handleAuthException(exception : Exception, listener: TaskAuthFirebaseListener) {
+        exception.printStackTrace()
+        when (exception){
+            is FirebaseException -> {
+                val message = exception.message.toString()
+                val json = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1)
+                val error: FirebaseInternalError.Response =
+                        gson.fromJson(json, FirebaseInternalError.Response::class.java)
+                listener.onError(FirebaseExpectionUtil(error.error?.message!!, ErrorsTypes.ERROR_INVALID_CUSTOM_TOKEN))
 
+            }
+            is FirebaseAuthInvalidUserException -> {
+                listener.onError(FirebaseExpectionUtil(exception.errorCode, ErrorsTypes.valueOf(exception.errorCode)))
+            }
+        }
+    }
 
 
     fun authByMail(email: String, password: String, listener: TaskAuthFirebaseListener) {
