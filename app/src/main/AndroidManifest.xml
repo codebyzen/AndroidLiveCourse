@@ -20,10 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" android:theme="@style/NoActionBar" />
 
-
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
@@ -38,6 +37,10 @@
         <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity" />
 
         <activity android:name="com.vk.sdk.VKServiceActivity" android:label="ServiceActivity" android:theme="@style/VK.Transparent" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

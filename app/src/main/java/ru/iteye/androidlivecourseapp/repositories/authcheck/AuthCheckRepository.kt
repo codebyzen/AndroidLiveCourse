@@ -16,7 +16,6 @@ class AuthCheckRepository {
 
     var gson = Gson()
     var fAuth: FirebaseAuth? = null
-    val applicationPrefs = FirebaseUserPreferences()
 
     init {
         fAuth = FirebaseAuth.getInstance()
@@ -54,15 +53,14 @@ class AuthCheckRepository {
     private fun handleAuthException(exception : Exception, listener: TaskAuthFirebaseListener) {
         exception.printStackTrace()
         when (exception){
+            is FirebaseAuthInvalidUserException -> {
+                listener.onError(FirebaseExpectionUtil(exception.errorCode, ErrorsTypes.valueOf(exception.errorCode)))
+            }
             is FirebaseException -> {
                 val message = exception.message.toString()
                 val json = message.substring(message.indexOf("{"),message.lastIndexOf("}") + 1)
                 val error: FirebaseInternalError.Response = gson.fromJson(json, FirebaseInternalError.Response::class.java)
-                listener.onError(FirebaseExpectionUtil(error.error?.message!!, ErrorsTypes.ERROR_INVALID_CUSTOM_TOKEN))
-
-            }
-            is FirebaseAuthInvalidUserException -> {
-                listener.onError(FirebaseExpectionUtil(exception.errorCode, ErrorsTypes.valueOf(exception.errorCode)))
+                listener.onError(FirebaseExpectionUtil(error.error?.message!!, ErrorsTypes.valueOf(error.error.message)))
             }
         }
     }

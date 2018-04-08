@@ -4,12 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import kotlinx.android.synthetic.main.login_screen.*
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChoosePresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChooseView
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
 import ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity
+import android.graphics.Typeface
+
+
 
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
@@ -24,15 +28,9 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
     }
 
 
-
     fun onBtnClickEmailType(view: View){
         Log.d("***", "AuthChooseActivity -> onBtnClickEmailType")
         authChoosePresenter.startAuthEmailActivity()
-    }
-
-    fun onBtnClickRegEmail(view: View) {
-        Log.d("***", "AuthChooseActivity -> onBtnClickRegEmail")
-        authChoosePresenter.startRegEmailActivity()
     }
 
     override fun startRegEmailActivity(){
@@ -40,9 +38,20 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
         startActivity(intent)
     }
 
+    fun onBtnClickVKType(view: View){}
+    fun onBtnClickFBType(view: View){}
+
+
+    //TODO: перенести в auth_email
+    fun onBtnClickRegEmail(view: View) {
+        Log.d("***", "AuthChooseActivity -> onBtnClickRegEmail")
+        authChoosePresenter.startRegEmailActivity()
+    }
+    //TODO: перенести в auth_email
     override fun startAuthEmailActivity(){
         val intent = Intent(this, AuthEmailActivity::class.java)
         startActivity(intent)
     }
+
 
 }

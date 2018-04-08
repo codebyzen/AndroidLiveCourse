@@ -1,7 +1,7 @@
 <resources>
 
     <!-- APPLICATION -->
-    <string name="app_name">AndroidLiveCourseApp</string>
+    <string name="app_name">WSWMe</string>
 
 
     <!-- Error messages -->
@@ -26,10 +26,11 @@
     <string name="ERROR_WEAK_PASSWORD">The given password is invalid.</string>
 
     <!-- auth_choose -->
-    <string name="btn_text_choose_login_vk">Sign up VK</string>
-    <string name="btn_text_choose_login_fb">Sign up FB</string>
-    <string name="btn_text_choose_login_email">Sign up Email</string>
-    <string name="btn_text_reg_email">Sign in Email</string>
+    <string name="splash_text_welcome">Добро пожаловать. Войдите с помощью одной из соцсетей или через e-mail:</string>
+    <string name="btn_text_choose_login_vk">Войти через ВКонтакте</string>
+    <string name="btn_text_choose_login_fb">Войти через FaceBook</string>
+    <string name="btn_text_choose_login_email">Войти через Email</string>
+    <string name="btn_text_reg_email">Я новый пользователь</string>
 
 
     <!-- reg_email -->
