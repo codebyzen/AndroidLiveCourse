@@ -8,14 +8,14 @@ import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.GooglePlayUtils
 import android.net.ConnectivityManager
 import com.google.firebase.auth.AuthResult
-import ru.iteye.androidlivecourseapp.data.database.firebase_auth.FirebaseAuth
 import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.models.Application
+import ru.iteye.androidlivecourseapp.repositories.authcheck.AuthCheckRepository
 
 
 class SplashRepositoryImpl: SplashRepository {
 
-    private val firebase = FirebaseAuth()
+    private val firebasecheck = AuthCheckRepository()
 
     private fun checkForGooglePlayServiceVersion(): Boolean {
         Log.d("***", "SplashRepositoryImpl -> checkForGooglePlayServiceVersion")
@@ -61,7 +61,7 @@ class SplashRepositoryImpl: SplashRepository {
                     } else {
                         Log.d("***", "SplashRepositoryImpl -> startupCheckList -> complete")
 
-                        firebase.authCheck(object : TaskAuthFirebaseListener {
+                        firebasecheck.authCheck(object : TaskAuthFirebaseListener {
                             override fun onSuccess(result: AuthResult) {
                                 Log.d("***", "SplashRepositoryImpl -> startupCheck:override -> onSuccess")
                                 subscriber.onNext(true)

@@ -3,15 +3,14 @@ package ru.iteye.androidlivecourseapp.repositories
 import android.util.Log
 import com.google.firebase.auth.AuthResult
 import io.reactivex.Observable
-import ru.iteye.androidlivecourseapp.data.database.firebase_auth.FirebaseAuth
 import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.repositories.RegRepository
-import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
+import ru.iteye.androidlivecourseapp.repositories.authemail.RegEmailRepository
 
 
 class RegRepositoryImpl: RegRepository {
 
-    private val firebase = FirebaseAuth()
+    private val firebase = RegEmailRepository()
 
 
     override fun registrationByEmail(email: String, password: String) : Observable<Boolean> {
