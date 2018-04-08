@@ -34,27 +34,30 @@
 
 
     <!-- reg_email -->
-    <string name="header_reg_email">Sign up with Email</string>
-    <string name="btn_text_registration_email">Registration</string>
-    <string name="checkbox_registration_confirm_rights">I agree with the terms of use</string>
-    <string name="terms_is_not_accepted">Required accept terms and rules!</string>
-    <string name="user_registered">New user registered!</string>
+    <string name="btn_text_registration_email">Регистрация</string>
+    <string name="checkbox_registration_confirm_rights">Я согласен с правилами</string>
+    <string name="terms_is_not_accepted">Нужно согласиться с правилами!</string>
+    <string name="user_registered">Вы зарегистрированны!</string>
 
     <!-- auth_email -->
-    <string name="header_login_email">Sign in with Email</string>
-    <string name="btn_text_login_email">Login</string>
-    <string name="btn_text_login_email_send_password">I forgot password</string>
+    <string name="auth_email_actionbar_text">Вход через e-mail</string>
+    <string name="auth_email_btn_text_login_email">Войти</string>
+    <string name="auth_email_btn_text_new_user">Я новый пользователь</string>
+    <string name="auth_email_btn_text_login_email_send_password">Забыли?</string>
 
     <!-- auth/reg form -->
+    <string name="reg_email_actionbar_text">Регистрация</string>
+    <string name="reg_email_welcome_text">Заполните данные, чтобы создать новый аккаунт:</string>
     <string name="text_login_email">Email</string>
-    <string name="text_login_input_email_placeholder">myname@domain.tld</string>
-    <string name="text_login_password">Password</string>
-    <string name="text_login_input_password_placeholder">your secret phrase</string>
-    <string name="wrong_email">Required correct email!</string>
-    <string name="wrong_password">Must be 6 symbols or more!</string>
+    <string name="text_login_input_email_placeholder">Email</string>
+    <string name="text_login_password">Пароль</string>
+    <string name="text_login_password2">Повторите пароль</string>
+    <string name="text_login_input_password_placeholder">Пароль</string>
+    <string name="wrong_email">Введите правильный Email!</string>
+    <string name="wrong_password">Пароль должен быть длиннее 6 символов!</string>
 
     <!-- splash_screen -->
-    <string name="text_splash_screen_loading">Loading…</string>
+    <string name="text_splash_screen_loading">Загружаемся…</string>
 
     <!-- some other not unique strings -->
     <string name="btn_text_ok">OK</string>

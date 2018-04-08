@@ -22,16 +22,16 @@
 
         <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" android:theme="@style/NoActionBar" />
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" android:theme="@style/AppTheme">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" android:label="@string/auth_email_actionbar_text" android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
         </activity>
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity" android:label="@string/reg_email_actionbar_text" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
+                android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" />
         </activity>
 
         <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity" />

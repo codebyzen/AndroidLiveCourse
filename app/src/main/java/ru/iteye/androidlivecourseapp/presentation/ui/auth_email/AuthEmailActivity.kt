@@ -10,6 +10,7 @@ import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailPresenter
 import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailView
+import ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity
 import ru.iteye.androidlivecourseapp.utils.ValidateUtils
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
@@ -77,6 +78,17 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         val res = resources
         val localized = res.getString(res.getIdentifier(errorType.name, "string", packageName))
         showError(localized, {})
+    }
+
+
+    fun onBtnClickRegEmail(view: View) {
+        Log.d("***", "AuthChooseActivity -> onBtnClickRegEmail")
+        authEmailPresenter.startRegEmailActivity()
+    }
+
+    override fun startRegEmailActivity(){
+        val intent = Intent(this, RegEmailActivity::class.java)
+        startActivity(intent)
     }
 
 

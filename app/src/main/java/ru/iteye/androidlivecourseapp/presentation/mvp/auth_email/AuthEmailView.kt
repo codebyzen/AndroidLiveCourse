@@ -12,4 +12,6 @@ interface AuthEmailView: BaseView {
 
     fun showFirebaseErrorMessage(errorType: ErrorsTypes)
 
+    fun startRegEmailActivity()
+
 }

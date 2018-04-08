@@ -33,21 +33,10 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
         authChoosePresenter.startAuthEmailActivity()
     }
 
-    override fun startRegEmailActivity(){
-        val intent = Intent(this, RegEmailActivity::class.java)
-        startActivity(intent)
-    }
-
     fun onBtnClickVKType(view: View){}
     fun onBtnClickFBType(view: View){}
 
 
-    //TODO: перенести в auth_email
-    fun onBtnClickRegEmail(view: View) {
-        Log.d("***", "AuthChooseActivity -> onBtnClickRegEmail")
-        authChoosePresenter.startRegEmailActivity()
-    }
-    //TODO: перенести в auth_email
     override fun startAuthEmailActivity(){
         val intent = Intent(this, AuthEmailActivity::class.java)
         startActivity(intent)

@@ -50,5 +50,8 @@ class AuthEmailPresenter : BasePresenter<AuthEmailActivity>() {
         getView()?.onSuccessAuth()
     }
 
+    fun startRegEmailActivity() {
+        getView()?.startRegEmailActivity()
+    }
 
 }

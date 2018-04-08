@@ -9,8 +9,4 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
         getView()?.startAuthEmailActivity()
     }
 
-    fun startRegEmailActivity() {
-        getView()?.startRegEmailActivity()
-    }
-
 }
