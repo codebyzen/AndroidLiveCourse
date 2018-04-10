@@ -4,7 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="btn_default_color">#039be5</color>
+
+    <color name="main">#039be5</color>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="white">#ffffff</color>
+
+    <color name="btn_vk_bg">#597da3</color>
+    <color name="btn_fb_bg">#3b5998</color>
+
     <color name="btn_default_text_color">#ffffff</color>
     <color name="text_default_color">#4a4a4a</color>
 

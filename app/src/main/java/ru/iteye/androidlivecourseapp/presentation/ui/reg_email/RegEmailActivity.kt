@@ -45,22 +45,30 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
 
         val email = this.findViewById<EditText>(R.id.input_email)
         val password = this.findViewById<EditText>(R.id.input_password)
+        val password_retype = this.findViewById<EditText>(R.id.input_password_retype)
         val checkBox = this.findViewById<CheckBox>(R.id.checkbox_agree_terms)
+
+        if (!ValidateUtils.isValidEmail(email.text.trim().toString())) {
+            onWrongEmail(email)
+            return false
+        }
+
+        if (!ValidateUtils.isValidPassword(password.text.trim().toString())) {
+            onWrongPassword(password)
+            return false
+        }
+
+
+        if (password.text.trim().toString()!=password_retype.text.trim().toString()) {
+            onPasswordsNotEqual(password_retype)
+            return false
+        }
 
         if (!checkBox.isChecked) {
             onTermsIsNotAccepted(checkBox)
             return false
         }
 
-        if (!ValidateUtils.isValidEmail(email.text)) {
-            onWrongEmail(email)
-            return false
-        }
-
-        if (!ValidateUtils.isValidPassword(password.toString())) {
-            onWrongPassword(password)
-            return false
-        }
 
         return true
     }
@@ -72,10 +80,20 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
 
     override fun onWrongEmail(email: EditText) {
         email.error = getString(R.string.wrong_email)
+        email.isFocusableInTouchMode = true
+        email.requestFocus()
     }
 
     override fun onWrongPassword(password: EditText) {
         password.error = getString(R.string.wrong_password)
+        password.isFocusableInTouchMode = true
+        password.requestFocus()
+    }
+
+    override fun onPasswordsNotEqual(password_retype: EditText) {
+        password_retype.error = getString(R.string.passwords_not_equal)
+        password_retype.isFocusableInTouchMode = true
+        password_retype.requestFocus()
     }
 
     override fun onUserRegistered(){

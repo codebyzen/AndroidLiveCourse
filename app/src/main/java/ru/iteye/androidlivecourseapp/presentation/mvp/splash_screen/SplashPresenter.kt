@@ -37,6 +37,7 @@ class SplashPresenter : BasePresenter<SplashView>() {
             Log.d("***", "SplashPresenter -> afterStartUpCheckError -> error is FirebaseExpectionUtil")
             when (error.type) {
                 ErrorsTypes.ERROR_USER_NOT_FOUND -> onUserAuthError()
+                ErrorsTypes.USER_NOT_FOUND -> onUserAuthError()
                 ErrorsTypes.USER_DISABLED -> onUserDisabled()
                 ErrorsTypes.ERROR_USER_DISABLED -> onUserDisabled()
                 ErrorsTypes.USER_IS_NULL-> onUserAuthError()

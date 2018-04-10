@@ -6,6 +6,7 @@ import ru.iteye.androidlivecourseapp.presentation.view.base.BaseView
 interface RegEmailView: BaseView {
     fun onWrongEmail(email: EditText)
     fun onWrongPassword(password: EditText)
+    fun onPasswordsNotEqual(password_retype: EditText)
     fun onUserRegistered()
     fun onUserAlreadyExist()
     fun onTermsIsNotAccepted(checkBox: CheckBox)

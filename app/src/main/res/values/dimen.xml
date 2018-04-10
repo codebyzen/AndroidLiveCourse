@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fontsize_default">16sp</dimen>
+    <dimen name="btn_fontsize_default">14sp</dimen>
+    <dimen name="logo_fontsize">24sp</dimen>
+    <dimen name="input_fontsize">18sp</dimen>
+</resources>
