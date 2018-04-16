@@ -4,20 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import kotlinx.android.synthetic.main.login_screen.*
+import com.vk.sdk.*
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChoosePresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChooseView
+import ru.iteye.androidlivecourseapp.presentation.mvp.auth_vk.AuthVKPresenter
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
-import ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity
-import android.graphics.Typeface
-
+import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
 
 
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     private val authChoosePresenter = AuthChoosePresenter()
+    private val authVKPresenter = AuthVKPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +25,7 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
         authChoosePresenter.setView(this)
         Log.d("***", "AuthChooseActivity -> ActivityAuthChoosePresenter")
+        vkAccessTokenTracker.startTracking()
     }
 
 
@@ -33,7 +34,42 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
         authChoosePresenter.startAuthEmailActivity()
     }
 
-    fun onBtnClickVKType(view: View){}
+    fun onBtnClickVKType(view: View){
+        Log.d("***", "AuthChooseActivity -> onBtnClickVKType")
+
+        if (!VKSdk.isLoggedIn()) {
+            VKSdk.login(this, "4194307")
+        } else {
+            Log.d("***", "AuthChooseActivity -> onBtnClickVKType -> already authorized")
+            onSuccessAuth()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.d("***", "AuthChooseActivity -> onActivityResult")
+        authVKPresenter.signIn(requestCode, resultCode, data)
+    }
+
+    var vkAccessTokenTracker: VKAccessTokenTracker = object : VKAccessTokenTracker() {
+        override fun onVKAccessTokenChanged(oldToken: VKAccessToken?, newToken: VKAccessToken?) {
+            Log.d("***", "AuthChooseActivity -> vkAccessTokenTracker")
+            if (newToken == null) {
+                // VKAccessToken is invalid
+                Log.d("***", "AuthChooseActivity -> vkAccessTokenTracker -> VKAccessToken is invalid")
+            }
+        }
+    }
+
+    override fun superOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onSuccessAuth() {
+        Log.d("***", "AuthChooseActivity -> onSuccessAuth")
+        val intent = Intent(this, FriendsListActivity::class.java)
+        startActivity(intent)
+    }
+
     fun onBtnClickFBType(view: View){}
 
 

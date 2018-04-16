@@ -26,6 +26,7 @@ enum class ErrorsTypes(val errorType: Int) {
     ERROR_OPERATION_NOT_ALLOWED(115),
     ERROR_WEAK_PASSWORD(116),
 
+    ERROR_UNKNOWN_ERROR(31336),
     ALLOK(31337),
 
 }
