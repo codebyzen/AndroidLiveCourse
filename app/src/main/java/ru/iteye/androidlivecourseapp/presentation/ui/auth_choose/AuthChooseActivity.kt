@@ -9,7 +9,6 @@ import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChoosePresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChooseView
-import ru.iteye.androidlivecourseapp.presentation.mvp.auth_vk.AuthVKPresenter
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
 import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
 
@@ -17,7 +16,6 @@ import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListAct
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     private val authChoosePresenter = AuthChoosePresenter()
-    private val authVKPresenter = AuthVKPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +45,7 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d("***", "AuthChooseActivity -> onActivityResult")
-        authVKPresenter.signIn(requestCode, resultCode, data)
+        authChoosePresenter.signInVK(requestCode, resultCode, data)
     }
 
     var vkAccessTokenTracker: VKAccessTokenTracker = object : VKAccessTokenTracker() {
