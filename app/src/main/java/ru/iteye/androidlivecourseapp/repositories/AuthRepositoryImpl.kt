@@ -5,12 +5,12 @@ import com.google.firebase.auth.AuthResult
 import io.reactivex.Observable
 import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.repositories.AuthRepository
-import ru.iteye.androidlivecourseapp.repositories.authemail.AuthEmailRepository
+import ru.iteye.androidlivecourseapp.data.firebase.AuthEmail
 
 
 class AuthRepositoryImpl : AuthRepository {
 
-    private val firebase = AuthEmailRepository()
+    private val firebase = AuthEmail()
 
 
     override fun authByMail(email: String, password: String): Observable<Boolean> {

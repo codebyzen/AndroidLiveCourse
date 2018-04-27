@@ -10,12 +10,12 @@ import android.net.ConnectivityManager
 import com.google.firebase.auth.AuthResult
 import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.models.Application
-import ru.iteye.androidlivecourseapp.repositories.authcheck.AuthCheckRepository
+import ru.iteye.androidlivecourseapp.data.firebase.AuthCheck
 
 
 class SplashRepositoryImpl: SplashRepository {
 
-    private val firebasecheck = AuthCheckRepository()
+    private val firebasecheck = AuthCheck()
 
     private fun checkForGooglePlayServiceVersion(): Boolean {
         Log.d("***", "SplashRepositoryImpl -> checkForGooglePlayServiceVersion")

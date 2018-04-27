@@ -1,5 +1,6 @@
 package ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -14,10 +15,28 @@ import ru.iteye.androidlivecourseapp.utils.errors.VKExceptionUtil
 
 class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
 
+    /**
+     * Функция вызывает функцию перехода к новому лейауту у родительской Activity
+     */
     fun startAuthEmailActivity() {
         getView()?.startAuthEmailActivity()
     }
 
+    /**
+     * Функция для логина через VK
+     */
+    fun loginVK(pAct: Activity) {
+        if (!VKSdk.isLoggedIn()) {
+            VKSdk.login(pAct, "4194307")
+        } else {
+            Log.d("***", "AuthVKPresenter -> loginVK -> already authorized")
+            getView()?.onSuccessAuth()
+        }
+    }
+
+    /**
+     * Функция вызывается из родительской Activity функции onActivityResult
+     */
     fun signInVK(requestCode: Int, resultCode: Int, data: Intent?) {
 
         Log.d("***", "AuthVKPresenter -> signIn")
@@ -51,11 +70,19 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
 
     }
 
+    /**
+     * Функция показывает ошибку и вызывается при ошибке в signInVK
+     */
     private fun afterAuthentificationError(error: Throwable) {
         Log.d("***", "AuthVKPresenter -> afterAuthentificationError -> error: " + error.message.toString())
         getView()?.showError(error.message!!, {})
     }
 
+
+    /**
+     * Функция вызывает из родительской активити функцию onSuccessAuth
+     * при успешном результате в signInVK
+     */
     private fun onUserAuthenticated() {
         Log.d("***", "AuthVKPresenter -> onUserAuthenticated -> user authenticated")
         getView()?.onSuccessAuth()

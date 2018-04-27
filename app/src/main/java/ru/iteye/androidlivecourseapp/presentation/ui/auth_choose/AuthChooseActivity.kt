@@ -34,13 +34,7 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     fun onBtnClickVKType(view: View){
         Log.d("***", "AuthChooseActivity -> onBtnClickVKType")
-
-        if (!VKSdk.isLoggedIn()) {
-            VKSdk.login(this, "4194307")
-        } else {
-            Log.d("***", "AuthChooseActivity -> onBtnClickVKType -> already authorized")
-            onSuccessAuth()
-        }
+        authChoosePresenter.loginVK(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
