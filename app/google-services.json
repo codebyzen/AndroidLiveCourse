@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "562396148204",
+    "firebase_url": "https://androidcourseproject-26568.firebaseio.com",
+    "project_id": "androidcourseproject-26568",
+    "storage_bucket": "androidcourseproject-26568.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562396148204:android:d33cfe93cca56b2c",
+        "android_client_info": {
+          "package_name": "ru.iteye.androidlivecourseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "562396148204-e5277g5icsr0k8sau1js4afp7hltchlo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.iteye.androidlivecourseapp",
+            "certificate_hash": "b73bfa8d85169a665e0a7cd21a7c14c64ac8641d"
+          }
+        },
+        {
+          "client_id": "562396148204-qpk3rmbhii00gld696qpf5rrdd026brk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe38aKzXmNssXp7pI_gwxxJg1_uPXKMBs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "562396148204-qpk3rmbhii00gld696qpf5rrdd026brk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

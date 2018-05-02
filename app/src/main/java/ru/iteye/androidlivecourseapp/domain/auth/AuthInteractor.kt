@@ -6,9 +6,16 @@ import ru.iteye.androidlivecourseapp.domain.global.repositories.AuthRepository
 
 class AuthInteractor(private var repository : AuthRepository) {
 
+    private val TAG = "*** AuthInteractor"
+
     fun authByMail(email : String, password : String): Observable<Boolean> {
-        Log.d("***", "AuthInteractor -> authByMail")
+        Log.d(TAG, " -> authByMail")
         return repository.authByMail(email, password)
+    }
+
+    fun authByToken(tokenVK: String): Observable<Boolean> {
+        Log.d(TAG, " -> authByMail")
+        return repository.authByToken(tokenVK)
     }
 
 }

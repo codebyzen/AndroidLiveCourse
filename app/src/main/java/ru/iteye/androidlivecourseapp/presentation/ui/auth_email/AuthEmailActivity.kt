@@ -5,6 +5,8 @@ import android.widget.EditText
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailPresenter
@@ -17,7 +19,6 @@ import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 class AuthEmailActivity : BaseActivity(), AuthEmailView {
 
-
     private val authEmailPresenter = AuthEmailPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,18 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
         setContentView(R.layout.login_screen_email)
 
         authEmailPresenter.setView(this)
+
+        val mProgressBar = this.findViewById<ProgressBar>(R.id.progressBar)
+        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+        mProgressBarFrame.visibility = View.GONE
+
+        if (android.os.Build.VERSION.SDK_INT > 21 ) {
+            mProgressBar.elevation = 2f
+            mProgressBar.translationZ =  2f
+            mProgressBarFrame.elevation = 2f
+            mProgressBarFrame.translationZ = 2f
+        }
+
         Log.d("***", "AuthEmailActivity created!")
     }
 
@@ -35,6 +48,9 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
 
     fun onBtnClickAuth(view: View){
         Log.d("***","AuthEmailActivity -> onBtnClickAuth")
+
+        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+        mProgressBarFrame.visibility = View.VISIBLE
 
         if (validateFormEmailAuth()) {
             val email = this.findViewById<EditText>(R.id.input_email).text.toString()
@@ -62,14 +78,20 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
     }
 
     override fun onWrongEmail(email: EditText) {
+        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+        mProgressBarFrame.visibility = View.GONE
         email.error = getString(R.string.ERROR_INVALID_EMAIL)
     }
 
     override fun onWeakPassword(password: EditText) {
+        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+        mProgressBarFrame.visibility = View.GONE
         password.error = getString(R.string.ERROR_WEAK_PASSWORD)
     }
 
     override fun onSuccessAuth() {
+        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+        mProgressBarFrame.visibility = View.GONE
         val intent = Intent(this, FriendsListActivity::class.java).apply {}
         startActivity(intent)
     }

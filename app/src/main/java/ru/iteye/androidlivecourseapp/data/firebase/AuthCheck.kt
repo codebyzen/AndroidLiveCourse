@@ -21,7 +21,7 @@ class AuthCheck {
     }
 
     /**
-     * Проверяем авторизован ли уже пользователь и выполняем замыкание
+     * Проверяем авторизован ли уже пользователь
      */
     fun authCheck(listener: TaskAuthFirebaseListener) {
         Log.d("***", "FirebaseUserPreferences -> authCheck")

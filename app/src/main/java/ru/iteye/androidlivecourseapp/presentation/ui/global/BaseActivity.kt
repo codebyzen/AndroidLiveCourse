@@ -6,10 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
-import android.widget.TextView
 import android.view.Gravity
 import android.widget.FrameLayout
-import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.view.base.BaseView
 
 
@@ -52,6 +50,9 @@ open class BaseActivity : AppCompatActivity(), BaseView {
                 //.setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
                 .show()
     }
+
+
+
 
 }
 

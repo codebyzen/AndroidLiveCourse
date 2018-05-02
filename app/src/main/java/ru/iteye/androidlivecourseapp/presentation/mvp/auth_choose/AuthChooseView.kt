@@ -7,4 +7,5 @@ interface AuthChooseView: BaseView {
     fun startAuthEmailActivity()
     fun onSuccessAuth()
     fun superOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    fun onAuthVkFail()
 }
