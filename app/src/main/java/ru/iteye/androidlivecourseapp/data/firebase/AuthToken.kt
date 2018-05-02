@@ -83,9 +83,28 @@ class AuthToken {
 
     fun SignInWithToken(tokenVK: String, listener: TaskAuthFirebaseListener) {
         Log.d(TAG, " -> SignInWithToken")
-        //val token = sendPost(tokenVK)
+        val token = sendPost(tokenVK)
+        Log.d(TAG, " -> SignInWithToken -> task:successes")
+        val task = fAuth?.signInWithCustomToken(token)
 
+        if (task == null) {
+            Log.d(TAG, " -> SignInWithToken -> task is NULL")
+            listener.onError(FirebaseExpectionUtil("USER_IS_NULL", ErrorsTypes.USER_IS_NULL))
+        }
 
+        task?.addOnCompleteListener({
+            if (it.isSuccessful) {
+                Log.d(TAG, " -> SignInWithToken -> success")
+                val user = fAuth?.currentUser
+                Log.d(TAG, user?.uid)
+                listener.onSuccess(it.result)
+            } else {
+                Log.w(TAG, " -> SignInWithToken -> failure", task.exception)
+                listener.onError(FirebaseExpectionUtil("ERROR_UNKNOWN_ERROR", ErrorsTypes.ERROR_UNKNOWN_ERROR))
+            }
+        })
+
+/*
         getToken(tokenVK)
                 .addOnCompleteListener({
                     if (!it.isSuccessful) {
@@ -120,7 +139,7 @@ class AuthToken {
                             }
                         })
                     }
-                })
+                })*/
     }
 
 
