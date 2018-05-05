@@ -48,7 +48,7 @@ class AuthRepositoryImpl : AuthRepository {
             Log.d(TAG, " -> authByToken -> Observable.create")
             Log.d(TAG, " -> authByToken -> thread name: " + Thread.currentThread().name)
 
-            firebaseToken.SignInWithToken(tokenVK, object : TaskAuthFirebaseListener {
+            firebaseToken.signInWithToken(tokenVK, object : TaskAuthFirebaseListener {
                 override fun onSuccess(result: AuthResult) {
                     subscriber.onNext(true)
                     subscriber.onComplete()

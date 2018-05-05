@@ -26,6 +26,8 @@ class AuthCheck {
     fun authCheck(listener: TaskAuthFirebaseListener) {
         Log.d("***", "FirebaseUserPreferences -> authCheck")
 
+        fAuth = FirebaseAuth.getInstance()
+
         val currentUser = fAuth?.currentUser
         if (currentUser == null) {
             listener.onError(FirebaseExpectionUtil("ERROR_USER_NOT_FOUND", ErrorsTypes.ERROR_USER_NOT_FOUND))

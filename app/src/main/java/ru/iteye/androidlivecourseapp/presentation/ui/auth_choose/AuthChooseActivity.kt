@@ -18,6 +18,7 @@ import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListAct
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     private val authChoosePresenter = AuthChoosePresenter()
+    private val TAG = "*** AuthChooseActivity "
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,19 +26,35 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
         authChoosePresenter.setView(this)
 
-        val mProgressBar = this.findViewById<ProgressBar>(R.id.progressBar)
-        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
-        mProgressBarFrame.visibility = View.GONE
+        toggleProgressBar(false)
 
         if (android.os.Build.VERSION.SDK_INT > 21 ) {
-            mProgressBar.elevation = 2f
-            mProgressBar.translationZ =  2f
-            mProgressBarFrame.elevation = 2f
-            mProgressBarFrame.translationZ = 2f
+            val mProgressBar = this.findViewById<ProgressBar>(R.id.progressBar)
+            mProgressBar.apply {
+                elevation = 2f
+                translationZ =  2f
+                elevation = 2f
+                translationZ = 2f
+            }
         }
 
         Log.d("***", "AuthChooseActivity -> ActivityAuthChoosePresenter")
         vkAccessTokenTracker.startTracking()
+    }
+
+    override fun toggleProgressBar(letsShow: Boolean?){
+        val progressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+        if (progressBarFrame.visibility == View.VISIBLE || letsShow==false) {
+            Log.d(TAG, "-> toggleProgressBar -> hide ProgressBarFrame")
+            R.id.progressBarFrame.apply {
+                setVisible(false)
+            }
+        } else {
+            Log.d(TAG, "-> toggleProgressBar -> show ProgressBarFrame")
+            R.id.progressBarFrame.apply {
+                setVisible(true)
+            }
+        }
     }
 
 
@@ -47,16 +64,9 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
     }
 
     fun onBtnClickVKType(view: View){
-        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
-        mProgressBarFrame.visibility = View.VISIBLE
+        toggleProgressBar()
         Log.d("***", "AuthChooseActivity -> onBtnClickVKType")
         authChoosePresenter.loginVK(this)
-    }
-
-    override fun onAuthVkFail(){
-        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
-        mProgressBarFrame.visibility = View.GONE
-        showMessage("Вы не разрешили доступ к профилю!",true)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -80,8 +90,7 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     override fun onSuccessAuth() {
         Log.d("***", "AuthChooseActivity -> onSuccessAuth")
-        val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
-        mProgressBarFrame.visibility = View.GONE
+        toggleProgressBar(false)
         val intent = Intent(this, FriendsListActivity::class.java)
         startActivity(intent)
     }

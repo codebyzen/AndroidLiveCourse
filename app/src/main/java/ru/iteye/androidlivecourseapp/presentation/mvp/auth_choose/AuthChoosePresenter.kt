@@ -31,12 +31,13 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
      * Функция для логина через VK
      */
     fun loginVK(pAct: Activity) {
-        if (!VKSdk.isLoggedIn()) {
-            VKSdk.login(pAct, VKScope.EMAIL, VKScope.FRIENDS)
-        } else {
-            Log.d(TAG, "AuthChoosePresenter -> loginVK -> already authorized")
-            getView()?.onSuccessAuth()
-        }
+        VKSdk.login(pAct, VKScope.EMAIL, VKScope.FRIENDS)
+//        if (!VKSdk.isLoggedIn()) {
+//            VKSdk.login(pAct, VKScope.EMAIL, VKScope.FRIENDS)
+//        } else {
+//            Log.d(TAG, "AuthChoosePresenter -> loginVK -> already authorized")
+//            getView()?.onSuccessAuth()
+//        }
     }
 
     /**
@@ -74,7 +75,8 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
             }
             override fun onError(error: VKError) {
                 Log.d(TAG," -> signInVK -> onError")
-                getView()?.onAuthVkFail()
+                getView()?.toggleProgressBar(false)
+                getView()?.showError("Вы не разрешили доступ к профилю!",{})
             }
         }
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, callback)) {
