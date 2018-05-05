@@ -32,12 +32,6 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
      */
     fun loginVK(pAct: Activity) {
         VKSdk.login(pAct, VKScope.EMAIL, VKScope.FRIENDS)
-//        if (!VKSdk.isLoggedIn()) {
-//            VKSdk.login(pAct, VKScope.EMAIL, VKScope.FRIENDS)
-//        } else {
-//            Log.d(TAG, "AuthChoosePresenter -> loginVK -> already authorized")
-//            getView()?.onSuccessAuth()
-//        }
     }
 
     /**

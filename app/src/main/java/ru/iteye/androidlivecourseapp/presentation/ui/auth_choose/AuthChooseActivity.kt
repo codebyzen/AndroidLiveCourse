@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import com.vk.sdk.*
@@ -29,8 +30,8 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
         toggleProgressBar(false)
 
         if (android.os.Build.VERSION.SDK_INT > 21 ) {
-            val mProgressBar = this.findViewById<ProgressBar>(R.id.progressBar)
-            mProgressBar.apply {
+            val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
+            mProgressBarFrame.apply {
                 elevation = 2f
                 translationZ =  2f
                 elevation = 2f
@@ -44,16 +45,20 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
 
     override fun toggleProgressBar(letsShow: Boolean?){
         val progressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
-        if (progressBarFrame.visibility == View.VISIBLE || letsShow==false) {
+
+        //TODO: тут как-то надо сделать так, чтобы кнопки под этим элементом были ненажимабельные, пока сделаю так, но это не кошерно как-то
+        if (letsShow==false) {
             Log.d(TAG, "-> toggleProgressBar -> hide ProgressBarFrame")
-            R.id.progressBarFrame.apply {
-                setVisible(false)
-            }
+            progressBarFrame.visibility = View.GONE
+            this.findViewById<Button>(R.id.button_login_email).isClickable = true
+            this.findViewById<Button>(R.id.button_login_vk).isClickable = true
+            this.findViewById<Button>(R.id.button_login_fb).isClickable = true
         } else {
             Log.d(TAG, "-> toggleProgressBar -> show ProgressBarFrame")
-            R.id.progressBarFrame.apply {
-                setVisible(true)
-            }
+            progressBarFrame.visibility = View.VISIBLE
+            this.findViewById<Button>(R.id.button_login_email).isClickable = false
+            this.findViewById<Button>(R.id.button_login_vk).isClickable = false
+            this.findViewById<Button>(R.id.button_login_fb).isClickable = false
         }
     }
 
@@ -64,13 +69,14 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
     }
 
     fun onBtnClickVKType(view: View){
-        toggleProgressBar()
+        toggleProgressBar(true)
         Log.d("***", "AuthChooseActivity -> onBtnClickVKType")
         authChoosePresenter.loginVK(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d("***", "AuthChooseActivity -> onActivityResult")
+        toggleProgressBar(true)
         authChoosePresenter.signInVK(requestCode, resultCode, data)
     }
 
