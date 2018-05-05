@@ -18,6 +18,8 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
 
         friendsListPresenter.setView(this)
 
+        friendsListPresenter.hello()
+
         Log.d("***", "FriendsListActivity CREATE")
     }
 
