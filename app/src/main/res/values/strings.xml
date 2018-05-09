@@ -26,6 +26,9 @@
     <string name="ERROR_INVALID_USER_TOKEN">The user\'s credential is no longer valid. The user must sign in again.</string>
     <string name="ERROR_OPERATION_NOT_ALLOWED">This operation is not allowed. You must enable this service in the console.</string>
     <string name="ERROR_WEAK_PASSWORD">The given password is invalid.</string>
+    <string name="ERROR_VK_ACCESS_DENIED_BY_USER">Вы не разрешили доступ к профилю!</string>
+    <string name="ERROR_UNKNOWN_ERROR">Неизвестная ошибка!</string>
+
 
     <!-- auth_choose -->
     <string name="splash_text_welcome">Добро пожаловать. Войдите с помощью одной из соцсетей или через e-mail:</string>

@@ -8,5 +8,6 @@ interface AuthChooseView: BaseView {
     fun onSuccessAuth()
     fun superOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
     fun toggleProgressBar(letsShow: Boolean?)
+    fun onAuthFail(error: String?)
 
 }

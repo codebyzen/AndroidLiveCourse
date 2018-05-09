@@ -3,6 +3,7 @@ package ru.iteye.androidlivecourseapp.presentation.ui.splash_screen
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import com.vk.sdk.util.VKUtil
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity
 import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
@@ -22,6 +23,9 @@ class SplashActivity : BaseActivity(), SplashView {
 
         Log.d("CREATE", "SplashActivity")
         // проверяем Google Play Service и авторизацию
+
+        val fingerprints = VKUtil.getCertificateFingerprint(this, this.packageName)
+
         splashPresenter.startupCheck()
     }
 

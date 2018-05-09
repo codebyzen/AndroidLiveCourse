@@ -14,6 +14,7 @@ import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChoosePres
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChooseView
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
 import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 
 
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
@@ -99,6 +100,22 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
         toggleProgressBar(false)
         val intent = Intent(this, FriendsListActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onAuthFail(error: String?) {
+
+        var errorString: String = "ERROR_UNKNOWN_ERROR"
+
+        if (error !== null) errorString = error
+
+        var errorText: String = getString(R.string.ERROR_UNKNOWN_ERROR)
+
+        if (errorString == "ERROR_VK_ACCESS_DENIED_BY_USER") {
+            errorText = getString(R.string.ERROR_VK_ACCESS_DENIED_BY_USER)
+        }
+
+        toggleProgressBar(false)
+        showError(errorText, {})
     }
 
     fun onBtnClickFBType(view: View){}

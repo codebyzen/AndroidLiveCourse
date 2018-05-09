@@ -2,6 +2,7 @@ package ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose
 
 import android.app.Activity
 import android.content.Intent
+import android.provider.Settings.Global.getString
 import android.util.Log
 import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKCallback
@@ -10,9 +11,12 @@ import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.domain.auth.AuthInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.repositories.AuthRepositoryImpl
+import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
+import ru.iteye.androidlivecourseapp.utils.errors.VKExceptionUtil
 import java.lang.Exception
 
 class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
@@ -41,9 +45,22 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
 
         Log.d(TAG, " -> signInVK")
 
-        val tokenVK = VKAccessToken.currentToken().accessToken
-        Log.d(TAG, " -> signInVK -> tokenVK: $tokenVK")
+        val qwe = VKAccessToken.currentToken()
+        if (qwe==null) {
+            val errorVKToken = VKExceptionUtil("ERROR_VK_ACCESS_DENIED_BY_USER", ErrorsTypes.ERROR_VK_ACCESS_DENIED_BY_USER)
+            afterAuthentificationError(errorVKToken) //ERROR_VK_ACCESS_DENIED_BY_USER
+            return
+        }
 
+        val tokenVK: String? = VKAccessToken.currentToken().accessToken
+        Log.d(TAG, " -> signInVK -> tokenVK: " + tokenVK.toString())
+
+
+        if (tokenVK == null) {
+            val errorVKToken = VKExceptionUtil(  "ERROR_VK_ACCESS_DENIED_BY_USER", ErrorsTypes.ERROR_VK_ACCESS_DENIED_BY_USER)
+            afterAuthentificationError(errorVKToken) //ERROR_VK_ACCESS_DENIED_BY_USER
+            return
+        }
 
         val callback = object : VKCallback<VKAccessToken> {
             override fun onResult(res: VKAccessToken) {
@@ -88,7 +105,7 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
      */
     private fun afterAuthentificationError(error: Throwable) {
         Log.d(TAG, " -> afterAuthentificationError -> error: " + error.message.toString())
-        getView()?.showError(error.message!!, {})
+        getView()?.onAuthFail(error.message)
     }
 
 

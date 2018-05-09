@@ -11,6 +11,9 @@ import com.google.firebase.auth.AuthResult
 import ru.iteye.androidlivecourseapp.repositories.listeners.TaskAuthFirebaseListener
 import ru.iteye.androidlivecourseapp.domain.global.models.Application
 import ru.iteye.androidlivecourseapp.data.firebase.AuthCheck
+import com.vk.sdk.util.VKUtil
+
+
 
 
 class SplashRepositoryImpl: SplashRepository {
@@ -46,6 +49,7 @@ class SplashRepositoryImpl: SplashRepository {
 
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting
     }
+
 
     override fun startupCheck(): Observable<Boolean> {
         return Observable.create<Boolean> { subscriber ->
