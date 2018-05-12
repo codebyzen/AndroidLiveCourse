@@ -72,5 +72,8 @@
 
     <!-- Friends list -->
     <string name="friendslist_loading">Загружаем друзей 👥</string>
+    <string name="friends_list_menu_bottom_firends">Друзья</string>
+    <string name="friends_list_menu_bottom_connections">Совпадения</string>
+    <string name="friends_list_menu_bottom_settings">Настройки</string>
 
 </resources>

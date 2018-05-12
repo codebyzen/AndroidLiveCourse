@@ -45,8 +45,8 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
 
         Log.d(TAG, " -> signInVK")
 
-        val qwe = VKAccessToken.currentToken()
-        if (qwe==null) {
+        val isTokenExist = VKAccessToken.currentToken()
+        if (isTokenExist==null) {
             val errorVKToken = VKExceptionUtil("ERROR_VK_ACCESS_DENIED_BY_USER", ErrorsTypes.ERROR_VK_ACCESS_DENIED_BY_USER)
             afterAuthentificationError(errorVKToken) //ERROR_VK_ACCESS_DENIED_BY_USER
             return

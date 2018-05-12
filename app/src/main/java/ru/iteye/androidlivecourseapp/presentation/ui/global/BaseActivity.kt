@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.view.Gravity
 import android.widget.FrameLayout
+import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.view.base.BaseView
 
 
@@ -19,7 +20,7 @@ open class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     private fun showToast(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
     private fun showSnack(msg: String) {
@@ -43,11 +44,10 @@ open class BaseActivity : AppCompatActivity(), BaseView {
         Log.d("***", "BaseActivity -> showError")
         AlertDialog.Builder(this)
                 .setMessage(message)
-                .setPositiveButton("Ok", { dialog, ok ->
+                .setPositiveButton(R.string.btn_text_ok, { dialog, ok ->
                     lambda()
                     dialog.dismiss()
                 })
-                //.setPositiveButton(R.string.btn_text_ok, { dialog, ok -> dialog.dismiss() })
                 .show()
     }
 
