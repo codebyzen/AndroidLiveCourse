@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import ru.iteye.androidlivecourseapp.utils.Friend
 
 
 class FriendsListActivity: BaseActivity(), FriendsListView {
@@ -22,7 +23,7 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
 
     private lateinit var friendsListRecycler: RecyclerView
     private lateinit var friendsListLayoutManager: RecyclerView.LayoutManager
-    private lateinit var friendsListDataset: Array<String>
+    private var friendsListDataset: ArrayList<Friend> = arrayListOf()
     private lateinit var friendsListAdapter: FriendsListAdapter
 
 
@@ -62,8 +63,7 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
 
 
     override fun prepareFriendsList(){
-        friendsListDataset = arrayOf("")
-        val myDataset: Array<String> = friendsListDataset
+        val myDataset: ArrayList<Friend> = friendsListDataset
         friendsListAdapter = FriendsListAdapter(myDataset)
         friendsListLayoutManager = LinearLayoutManager(this)
         friendsListRecycler = findViewById<RecyclerView>(R.id.FriendsList)
@@ -80,13 +80,13 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
         friendsListLoadeingText.visibility = View.GONE
     }
 
-    override fun appendFriendsList(myDataset: Array<String>) {
+    override fun appendFriendsList(myDataset: ArrayList<Friend>) {
 
         val itemsCount = friendsListAdapter.itemCount
 
         Log.d(TAG, " -> appendFriendsList -> friendsListRecycler items count is: $itemsCount")
 
-        friendsListDataset = friendsListDataset.plus(myDataset)
+        friendsListDataset.addAll(myDataset)
 
         Log.d(TAG, " -> appendFriendsList -> count of friendsListDataset is: " + myDataset.size.toString())
         friendsListAdapter.notifyItemRangeInserted(itemsCount, myDataset.size)
