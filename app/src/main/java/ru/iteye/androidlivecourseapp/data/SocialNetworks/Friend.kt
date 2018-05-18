@@ -1,4 +1,4 @@
-package ru.iteye.androidlivecourseapp.utils
+package ru.iteye.androidlivecourseapp.data.SocialNetworks
 
 import android.net.Uri
 
