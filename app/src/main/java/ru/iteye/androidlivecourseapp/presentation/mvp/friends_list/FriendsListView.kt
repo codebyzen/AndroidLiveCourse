@@ -1,7 +1,7 @@
 package ru.iteye.androidlivecourseapp.presentation.mvp.friends_list
 
 import ru.iteye.androidlivecourseapp.presentation.view.base.BaseView
-import ru.iteye.androidlivecourseapp.utils.Friend
+import ru.iteye.androidlivecourseapp.data.SocialNetworks.Friend
 
 interface FriendsListView: BaseView {
     fun prepareFriendsList()

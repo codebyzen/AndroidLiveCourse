@@ -12,7 +12,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import ru.iteye.androidlivecourseapp.utils.Friend
+import kotlinx.android.synthetic.main.friends_list.*
+import ru.iteye.androidlivecourseapp.data.SocialNetworks.Friend
 
 
 class FriendsListActivity: BaseActivity(), FriendsListView {
@@ -21,8 +22,6 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
 
     private val friendsListPresenter = FriendsListPresenter()
 
-    private lateinit var friendsListRecycler: RecyclerView
-    private lateinit var friendsListLayoutManager: RecyclerView.LayoutManager
     private var friendsListDataset: ArrayList<Friend> = arrayListOf()
     private lateinit var friendsListAdapter: FriendsListAdapter
 
@@ -35,7 +34,7 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
 
         friendsListPresenter.hello()
 
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.friends_list_menu_bottom)
+        val bottomNavigationView = friends_list_menu_bottom
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 object : BottomNavigationView.OnNavigationItemSelectedListener {
@@ -65,18 +64,14 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
     override fun prepareFriendsList(){
         val myDataset: ArrayList<Friend> = friendsListDataset
         friendsListAdapter = FriendsListAdapter(myDataset)
-        friendsListLayoutManager = LinearLayoutManager(this)
-        friendsListRecycler = findViewById<RecyclerView>(R.id.FriendsList)
 
-
-        friendsListRecycler.apply{
+        FriendsList.apply {
             setHasFixedSize(true)
-            layoutManager = friendsListLayoutManager
+            layoutManager = LinearLayoutManager(this.context)
             adapter = friendsListAdapter
-
         }
 
-        val friendsListLoadeingText = findViewById<TextView>(R.id.friends_list_loading_text)
+        val friendsListLoadeingText = friends_list_loading_text
         friendsListLoadeingText.visibility = View.GONE
     }
 
