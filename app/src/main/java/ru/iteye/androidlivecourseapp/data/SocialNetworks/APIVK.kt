@@ -90,6 +90,7 @@ class APIVK {
 
                     myDataset.add(friendData)
                 }
+
                 listener.onSuccess(myDataset)
             }
         })

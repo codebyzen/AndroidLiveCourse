@@ -36,6 +36,7 @@ class FriendsListActivity: BaseActivity(), FriendsListView {
 
         val bottomNavigationView = friends_list_menu_bottom
 
+        //TODO: убрать текст в стринги
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 object : BottomNavigationView.OnNavigationItemSelectedListener {
                     override fun onNavigationItemSelected(item: MenuItem): Boolean {

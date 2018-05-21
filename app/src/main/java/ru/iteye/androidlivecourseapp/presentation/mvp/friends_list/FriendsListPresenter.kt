@@ -11,7 +11,6 @@ import io.reactivex.schedulers.Schedulers
 import ru.iteye.androidlivecourseapp.data.SocialNetworks.Friend
 import ru.iteye.androidlivecourseapp.domain.SocialNetworks.SNInteractor
 import ru.iteye.androidlivecourseapp.repositories.SNRepositoryImpl
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -52,7 +51,7 @@ class FriendsListPresenter: BasePresenter<FriendsListView>() {
     fun onFriendsGetted(myDataset: ArrayList<Friend>){
         Log.d(TAG, " -> onFriendsGetted")
         for (i in myDataset) {
-            Log.d(TAG, " : " + i.firstName + ' ' + i.lastName + ' ' + i.age + ' ' + i.location)
+            //Log.d(TAG, " : " + i.firstName + ' ' + i.lastName + ' ' + i.age + ' ' + i.location)
         }
         getView()?.appendFriendsList(myDataset)
     }
