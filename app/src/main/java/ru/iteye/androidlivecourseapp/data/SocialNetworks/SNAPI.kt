@@ -9,7 +9,8 @@ class SNAPI {
         val TAG = "*** SNAPI"
     }
 
-    val apiVK = APIVK_mock()
+    //val apiVK = APIVK_mock()
+    val apiVK = APIVK()
 
     fun getActiveNetworsk(): Array<String>{
         Log.d(TAG, " -> getActiveNetworsk")

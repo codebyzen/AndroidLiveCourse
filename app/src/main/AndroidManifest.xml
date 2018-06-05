@@ -36,7 +36,7 @@
                 android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" />
         </activity>
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity" />
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.main_screen.MainScreenActivity" />
 
         <activity android:name="com.vk.sdk.VKServiceActivity" android:label="ServiceActivity" android:theme="@style/VK.Transparent" />
 

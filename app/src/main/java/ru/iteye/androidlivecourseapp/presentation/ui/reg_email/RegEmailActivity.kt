@@ -9,7 +9,7 @@ import android.widget.EditText
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.reg_email.RegEmailPresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.reg_email.RegEmailView
-import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
+import ru.iteye.androidlivecourseapp.presentation.ui.main_screen.MainScreenActivity
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.utils.ValidateUtils
 
@@ -98,7 +98,7 @@ class RegEmailActivity : BaseActivity(), RegEmailView {
 
     override fun onUserRegistered(){
         showMessage(getString(R.string.user_registered), true)
-        val intent = Intent(this, FriendsListActivity::class.java).apply {}
+        val intent = Intent(this, MainScreenActivity::class.java).apply {}
         startActivity(intent)
     }
 

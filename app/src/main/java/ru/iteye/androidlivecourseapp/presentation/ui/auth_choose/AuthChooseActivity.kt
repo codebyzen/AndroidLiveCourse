@@ -6,15 +6,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ProgressBar
 import com.vk.sdk.*
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChoosePresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose.AuthChooseView
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity
-import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
-import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
+import ru.iteye.androidlivecourseapp.presentation.ui.main_screen.MainScreenActivity
 
 
 class AuthChooseActivity: BaseActivity(), AuthChooseView {
@@ -78,6 +76,8 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d("***", "AuthChooseActivity -> onActivityResult")
         toggleProgressBar(true)
+        Log.d(TAG, "AuthChooseActivity -> onActivityResult: requestCode = " + requestCode.toString())
+        //TODO: тут надо как-то отслеживать от кого ответ чтобы делать signInVK или signInFB
         authChoosePresenter.signInVK(requestCode, resultCode, data)
     }
 
@@ -98,7 +98,7 @@ class AuthChooseActivity: BaseActivity(), AuthChooseView {
     override fun onSuccessAuth() {
         Log.d("***", "AuthChooseActivity -> onSuccessAuth")
         toggleProgressBar(false)
-        val intent = Intent(this, FriendsListActivity::class.java)
+        val intent = Intent(this, MainScreenActivity::class.java)
         startActivity(intent)
     }
 

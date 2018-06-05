@@ -6,7 +6,7 @@ import android.util.Log
 import com.vk.sdk.util.VKUtil
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity
-import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
+import ru.iteye.androidlivecourseapp.presentation.ui.main_screen.MainScreenActivity
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.presentation.mvp.splash_screen.SplashPresenter
 import ru.iteye.androidlivecourseapp.presentation.mvp.splash_screen.SplashView
@@ -49,7 +49,7 @@ class SplashActivity : BaseActivity(), SplashView {
     }
 
     override fun startFriendsListActivity() {
-        val intent = Intent(this, FriendsListActivity::class.java).apply {}
+        val intent = Intent(this, MainScreenActivity::class.java).apply {}
         startActivity(intent)
     }
 

@@ -13,9 +13,9 @@ class AuthInteractor(private var repository : AuthRepository) {
         return repository.authByMail(email, password)
     }
 
-    fun authByToken(tokenVK: String): Observable<Boolean> {
-        Log.d(TAG, " -> authByMail")
-        return repository.authByToken(tokenVK)
+    fun authByToken(token: String): Observable<Boolean> {
+        Log.d(TAG, " -> authByToken")
+        return repository.authByToken(token)
     }
 
 }

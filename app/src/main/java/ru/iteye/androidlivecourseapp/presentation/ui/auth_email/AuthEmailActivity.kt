@@ -10,7 +10,7 @@ import android.widget.ProgressBar
 import ru.iteye.androidlivecourseapp.presentation.ui.global.BaseActivity
 import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailPresenter
-import ru.iteye.androidlivecourseapp.presentation.ui.friends_list.FriendsListActivity
+import ru.iteye.androidlivecourseapp.presentation.ui.main_screen.MainScreenActivity
 import ru.iteye.androidlivecourseapp.presentation.mvp.auth_email.AuthEmailView
 import ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity
 import ru.iteye.androidlivecourseapp.utils.ValidateUtils
@@ -92,7 +92,7 @@ class AuthEmailActivity : BaseActivity(), AuthEmailView {
     override fun onSuccessAuth() {
         val mProgressBarFrame = this.findViewById<FrameLayout>(R.id.progressBarFrame)
         mProgressBarFrame.visibility = View.GONE
-        val intent = Intent(this, FriendsListActivity::class.java).apply {}
+        val intent = Intent(this, MainScreenActivity::class.java).apply {}
         startActivity(intent)
     }
 

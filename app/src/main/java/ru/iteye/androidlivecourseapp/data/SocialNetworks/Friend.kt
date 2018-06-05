@@ -3,6 +3,7 @@ package ru.iteye.androidlivecourseapp.data.SocialNetworks
 import android.net.Uri
 
 class Friend {
+    var uid: String? = null
     var firstName: String? = null
     var lastName: String? = null
     var photoSmall: String? = null

@@ -2,7 +2,6 @@ package ru.iteye.androidlivecourseapp.presentation.mvp.auth_choose
 
 import android.app.Activity
 import android.content.Intent
-import android.provider.Settings.Global.getString
 import android.util.Log
 import com.vk.sdk.VKAccessToken
 import com.vk.sdk.VKCallback
@@ -11,18 +10,39 @@ import com.vk.sdk.VKSdk
 import com.vk.sdk.api.VKError
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.iteye.androidlivecourseapp.R
 import ru.iteye.androidlivecourseapp.domain.auth.AuthInteractor
 import ru.iteye.androidlivecourseapp.presentation.mvp.global.BasePresenter
 import ru.iteye.androidlivecourseapp.repositories.AuthRepositoryImpl
 import ru.iteye.androidlivecourseapp.utils.errors.ErrorsTypes
 import ru.iteye.androidlivecourseapp.utils.errors.VKExceptionUtil
 import java.lang.Exception
+import java.security.NoSuchAlgorithmException
+
 
 class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
 
     private val TAG = "*** AuthChoosePresenter"
     private var interactor = AuthInteractor(AuthRepositoryImpl())
+
+    fun md5(s: String): String {
+        try {
+            // Create MD5 Hash
+            val digest = java.security.MessageDigest.getInstance("MD5")
+            digest.update(s.toByteArray())
+            val messageDigest = digest.digest()
+
+            // Create Hex String
+            val hexString = StringBuffer()
+            for (i in messageDigest.indices)
+                hexString.append(Integer.toHexString(0xFF and messageDigest[i].toInt()))
+            return hexString.toString()
+
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+
+        return ""
+    }
 
     /**
      * Функция вызывает функцию перехода к новому лейауту у родительской Activity
@@ -58,14 +78,16 @@ class AuthChoosePresenter: BasePresenter<AuthChooseView>() {
 
         if (tokenVK == null) {
             val errorVKToken = VKExceptionUtil(  "ERROR_VK_ACCESS_DENIED_BY_USER", ErrorsTypes.ERROR_VK_ACCESS_DENIED_BY_USER)
-            afterAuthentificationError(errorVKToken) //ERROR_VK_ACCESS_DENIED_BY_USER
+            afterAuthentificationError(errorVKToken)
             return
         }
+
+        val tokenForFirebase: String = md5("VK_WSWM" + tokenVK + "VK_WSWM")
 
         val callback = object : VKCallback<VKAccessToken> {
             override fun onResult(res: VKAccessToken) {
                 disposables.add(
-                        interactor.authByToken(tokenVK)
+                        interactor.authByToken(tokenForFirebase)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe({ isAuthSuccess ->
