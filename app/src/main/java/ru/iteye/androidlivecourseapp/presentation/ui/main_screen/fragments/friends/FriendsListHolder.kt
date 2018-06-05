@@ -1,9 +1,7 @@
-package ru.iteye.androidlivecourseapp.presentation.ui.friends_list
+package ru.iteye.androidlivecourseapp.presentation.ui.main_screen.fragments.friends
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.friends_list_item.view.*
 import ru.iteye.androidlivecourseapp.R
@@ -37,11 +35,12 @@ class FriendsListHolder(val listItem: View) : RecyclerView.ViewHolder(listItem) 
 
 
         // Location
-        if (friend.location=="") {
+        if (friend.location.isNullOrEmpty()) {
             //Log.d(TAG, "Location is NULL for " + friend.firstName + ' ' + friend.lastName)
             listItem.friends_list_item_location.visibility = View.GONE
             //Log.d(TAG, " -> LOCATION IS GONE FOR : " + name + ' ' + friend.age + ' ' + friend.location)
         } else {
+            listItem.friends_list_item_location.visibility = View.VISIBLE
             listItem.friends_list_item_location.text = friend.location
         }
 
@@ -53,8 +52,13 @@ class FriendsListHolder(val listItem: View) : RecyclerView.ViewHolder(listItem) 
             listItem.friends_list_item_sn_ic.setImageResource(R.drawable.ic_sign_fb)
         }
 
-        val imageView = listItem.findViewById<ImageView>(R.id.friends_list_item_photo)
-        Picasso.with(listItem.context).load(photoUrl).into(imageView)
+        Picasso.with(listItem.friends_list_item_photo.context).load(photoUrl).into(listItem.friends_list_item_photo)
+
+        listItem.friends_list_item_btn_like.setOnClickListener {
+            friend.uid
+        }
+
+
     }
 
 

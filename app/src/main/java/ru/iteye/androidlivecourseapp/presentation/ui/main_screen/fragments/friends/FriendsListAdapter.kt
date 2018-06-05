@@ -1,4 +1,4 @@
-package ru.iteye.androidlivecourseapp.presentation.ui.friends_list
+package ru.iteye.androidlivecourseapp.presentation.ui.main_screen.fragments.friends
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,9 +17,9 @@ class FriendsListAdapter(private var friendsListData: ArrayList<Friend>): Recycl
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsListHolder {
         // create a new view
-        val textView = LayoutInflater.from(parent.context).inflate(R.layout.friends_list_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.friends_list_item, parent, false)
         // set the view's size, margins, paddings and layout parameters
-        return FriendsListHolder(textView)
+        return FriendsListHolder(itemView)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
