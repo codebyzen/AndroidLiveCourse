@@ -15,28 +15,28 @@
         android:theme="@style/AppTheme"
         android:name="ru.iteye.androidlivecourseapp.domain.global.models.Application">
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.splash_screen.SplashActivity">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.splash_screen.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" android:theme="@style/NoActionBar" />
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.auth_choose.AuthChooseActivity" android:theme="@style/NoActionBar" />
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" android:label="@string/auth_email_actionbar_text" android:windowSoftInputMode="adjustResize">
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.auth_email.AuthEmailActivity" android:label="@string/auth_email_actionbar_text" android:windowSoftInputMode="adjustResize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_choose.AuthChooseActivity" />
+                android:value="ru.iteye.androidlivecourseapp.presentation.auth_choose.AuthChooseActivity" />
         </activity>
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.reg_email.RegEmailActivity" android:label="@string/reg_email_actionbar_text" >
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.reg_email.RegEmailActivity" android:label="@string/reg_email_actionbar_text" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ru.iteye.androidlivecourseapp.presentation.ui.auth_email.AuthEmailActivity" />
+                android:value="ru.iteye.androidlivecourseapp.presentation.auth_email.AuthEmailActivity" />
         </activity>
 
-        <activity android:name="ru.iteye.androidlivecourseapp.presentation.ui.main_screen.MainScreenActivity" />
+        <activity android:name="ru.iteye.androidlivecourseapp.presentation.main_screen.MainScreenActivity" />
 
         <activity android:name="com.vk.sdk.VKServiceActivity" android:label="ServiceActivity" android:theme="@style/VK.Transparent" />
 
